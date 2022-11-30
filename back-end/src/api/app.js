@@ -5,16 +5,19 @@ const errorMiddleware = require('../middlewares/error');
 
 const loginRoute = require('../routes/login');
 const registerRoute = require('../routes/register');
+const productsRoute = require('../routes/products');
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use(express.static('public'));
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 
 app.use('/login', loginRoute);
 app.use('/register', registerRoute);
+app.use('/products', productsRoute);
 
 app.use(errorMiddleware);
 
