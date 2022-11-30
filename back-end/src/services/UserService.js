@@ -20,6 +20,24 @@ class UserService {
 
     return { ...payload, token };
   }
+
+  static async register({ name, email, password }) {
+    const existingName = await User.findOne({
+      where: { name },
+    });
+
+    if (existingName) throw new HttpErrorHandler(409, 'Name already registered');
+
+    const existingEmail = await User.findOne({
+      where: { email },
+    });
+
+    if (existingEmail) throw new HttpErrorHandler(409, 'Email already registered');
+
+    const hashedPassword = md5(password);
+
+    await User.create({ name, email, password: hashedPassword, role: 'customer' });
+  }
 }
 
 module.exports = UserService;
