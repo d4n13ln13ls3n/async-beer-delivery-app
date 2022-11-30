@@ -1,12 +1,13 @@
-require('dotenv/config');
-const jwt = require('jsonwebtoken');
+require("dotenv/config");
+const jwt = require("jsonwebtoken");
+const fs = require("fs");
 
-export default class Token {
-  static jwtSecret = process.env.JWT_SECRET || 'secret_key';
+class Token {
   static jwtOptions = {
-    algorithm: 'HS256',
-    expiresIn: '1d',
+    algorithm: "HS256",
+    expiresIn: "1d",
   };
+  static jwtSecret = fs.readFileSync("jwt.evaluation.key", "utf-8");
 
   static create(payload) {
     const token = jwt.sign(payload, Token.jwtSecret, Token.jwtOptions);
@@ -20,3 +21,5 @@ export default class Token {
     return payload;
   }
 }
+
+module.exports = Token;
