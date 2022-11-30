@@ -2,7 +2,7 @@ import React from 'react';
 // import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 // import Login from './pages/Login';
-import { Switch, Route } from 'react-router-dom';
+import { Redirect, Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Products from './pages/Products';
@@ -16,7 +16,9 @@ import AdminPage from './pages/AdminPage';
 function App() {
   return (
     <Switch>
-      <Route exact path="/" component={ Login } />
+      <Route exact path="/">
+        <Redirect to="/login" />
+      </Route>
       <Route path="/login" component={ Login } />
       <Route exact path="/register" component={ Register } />
       <Route exact path="/customer/products" component={ Products } />

@@ -13,7 +13,7 @@ function InputRegister() {
       const emailValidate = /\S+@\S+\.\S+/;
       if (password.length > minLength
         && email.match(emailValidate)
-        && name.length > minNameLength) {
+        && name.length >= minNameLength) {
         setIsDisabled(false);
       } else {
         setIsDisabled(true);
@@ -67,7 +67,7 @@ function InputRegister() {
       </label>
 
       <button
-        data-testid="common_login__button-register"
+        data-testid="common_register__button-register"
         type="button"
         disabled={ isDisabled }
         onClick={ hadleRegister }
