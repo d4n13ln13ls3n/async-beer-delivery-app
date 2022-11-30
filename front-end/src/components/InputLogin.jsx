@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function InputLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
-
+  const history = useHistory();
   useEffect(() => {
     const handleSign = () => {
       const minLenght = 6;
@@ -23,7 +24,7 @@ function InputLogin() {
   };
 
   const handleCreate = () => {
-    // console.log('acess');
+    history.push('/register');
   };
 
   return (
