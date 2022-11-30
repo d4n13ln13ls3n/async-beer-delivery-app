@@ -1,7 +1,7 @@
-const { User } = require("../database/models");
-const HttpErrorHandler = require("../middlewares/errorHandler/HttpErrorHandler");
-const tokenHelper = require("../helpers/Token");
 const md5 = require('md5');
+const { User } = require('../database/models');
+const HttpErrorHandler = require('../middlewares/errorHandler/HttpErrorHandler');
+const tokenHelper = require('../helpers/Token');
 
 class UserService {
   static async login({ email, password }) {
@@ -9,10 +9,10 @@ class UserService {
 
     const user = await User.findOne({
       where: { email, password: hashedPassword },
-      attributes: { exclude: ["password"] },
+      attributes: { exclude: ['password'] },
     });
 
-    if (!user) throw new HttpErrorHandler(404, "User or password not found");
+    if (!user) throw new HttpErrorHandler(404, 'User or password not found');
 
     const payload = user.dataValues;
 
