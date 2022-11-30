@@ -11,10 +11,12 @@ module.exports = (sequelize, DataTypes) => {
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        foreignKey: true,
       },
       sellerId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        foreignKey: true,
       },
       totalPrice: {
         type: DataTypes.DECIMAL(9, 2),
