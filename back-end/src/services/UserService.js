@@ -9,7 +9,7 @@ class UserService {
 
     const user = await User.findOne({
       where: { email, password: hashedPassword },
-      attributes: { exclude: ['password'] },
+      attributes: { exclude: ['id', 'password'] },
     });
 
     if (!user) throw new HttpErrorHandler(404, 'User or password not found');
@@ -37,6 +37,10 @@ class UserService {
     const hashedPassword = md5(password);
 
     await User.create({ name, email, password: hashedPassword, role: 'customer' });
+
+    const token = tokenHelper.create({ name, email, role: 'customer' });
+
+    return { name, email, role: 'customer', token };
   }
 }
 

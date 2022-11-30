@@ -8,9 +8,9 @@ class UserController {
   }
 
   static async register(req, res) {
-    await UserService.register(req.body);
+    const newUser = await UserService.register(req.body);
 
-    return res.status(201).end();
+    return res.status(201).json(newUser);
   }
 }
 
