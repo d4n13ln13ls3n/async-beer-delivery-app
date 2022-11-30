@@ -1,5 +1,5 @@
-import 'dotenv/config';
-import * as jwt from 'jsonwebtoken';
+require('dotenv/config');
+const jwt = require('jsonwebtoken');
 
 export default class Token {
   static jwtSecret = process.env.JWT_SECRET || 'secret_key';

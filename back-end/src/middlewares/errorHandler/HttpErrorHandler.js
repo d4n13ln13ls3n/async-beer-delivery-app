@@ -1,4 +1,4 @@
-export default class HttpErrorHandler extends Error {
+class HttpErrorHandler extends Error {
   status;
 
   constructor(status, message) {
@@ -6,3 +6,5 @@ export default class HttpErrorHandler extends Error {
     this.status = status;
   }
 }
+
+module.exports = HttpErrorHandler;

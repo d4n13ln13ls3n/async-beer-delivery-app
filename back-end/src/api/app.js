@@ -1,6 +1,6 @@
-import "express-async-errors";
-import express from "express";
-import errorMiddleware from "../middlewares/error";
+const express = require('express');
+require('express-async-errors');
+const errorMiddleware = require('../middlewares/error')
 
 const app = express();
 
