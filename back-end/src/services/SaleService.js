@@ -1,4 +1,4 @@
-const { Sale, SaleProduct } = require('../database/models');
+const { User, Product, Sale, SaleProduct } = require('../database/models');
 const UserService = require('./UserService');
 const ProductService = require('./ProductService');
 
@@ -35,8 +35,32 @@ class SaleService {
         totalPrice,
         status,
       }));
-      
+
     return ordersList;
+  }
+
+  static async listProductsByOrder(userId, saleId) {
+    const results = await Sale.findOne({ 
+      where: { userId, id: saleId },
+      attributes: ['id', 'totalPrice', 'saleDate', 'status'],
+      include: [{ model: User, as: 'seller', attributes: ['name'] },
+      { model: Product, as: 'products', through: { attributes: [] } },
+    ],
+    });
+
+    console.log(results);
+
+    const { dataValues: { id, totalPrice, saleDate, status, seller, products } } = results;
+
+    const productsList = {
+      id,
+      totalPrice,
+      status,
+      sellerName: seller.name,
+      productsName: products.map((product) => product.name),
+    };
+    
+    return { ...productsList, saleDate: saleDate.toLocaleDateString('pt-BR') };
   }
 }
 
