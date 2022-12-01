@@ -4,63 +4,72 @@ const ProductService = require('./ProductService');
 
 class SaleService {
   static async register({ userId, sellerName, totPrice, delAddress, delNumber, products }) {
-        const { id: sellerId } = await UserService.getSellerByName(sellerName);
+    const { id: sellerId } = await UserService.getSellerByName(sellerName);
 
-        const newSale = await Sale.create({
-          userId,
-          sellerId,
-          totalPrice: totPrice,
-          deliveryAddress: delAddress,
-          deliveryNumber: delNumber,
-          status: 'Pendente',
-        });
+    const newSale = await Sale.create({
+      userId,
+      sellerId,
+      totalPrice: totPrice,
+      deliveryAddress: delAddress,
+      deliveryNumber: delNumber,
+      status: 'Pendente',
+    });
 
-        const saleProducts = await Promise.all(
-          products.map(async ({ name, quantity }) => ({
-            saleId: newSale.dataValues.id,
-            productId: await ProductService.getProductIdByName(name),
-            quantity,
-          })),
-        );
+    const saleProducts = await Promise.all(
+      products.map(async ({ name, quantity }) => ({
+        saleId: newSale.dataValues.id,
+        productId: await ProductService.getProductIdByName(name),
+        quantity,
+      })),
+    );
 
-        await SaleProduct.bulkCreate(saleProducts);
-  }
+    await SaleProduct.bulkCreate(saleProducts);
+}
 
   static async listAllByUserId(userId) {
     const results = await Sale.findAll({ where: { userId }, raw: true });
 
     const ordersList = results.map(({ id, saleDate, totalPrice, status }) => ({
-        id,
-        saleDate: saleDate.toLocaleDateString('pt-BR'),
-        totalPrice,
-        status,
-      }));
+      id,
+      saleDate: saleDate.toLocaleDateString('pt-BR'),
+      totalPrice,
+      status,
+    }));
 
     return ordersList;
   }
 
-  static async listProductsByOrder(userId, saleId) {
-    const results = await Sale.findOne({ 
-      where: { userId, id: saleId },
-      attributes: ['id', 'totalPrice', 'saleDate', 'status'],
-      include: [{ model: User, as: 'seller', attributes: ['name'] },
-      { model: Product, as: 'products', through: { attributes: [] } },
-    ],
-    });
-
-    console.log(results);
-
-    const { dataValues: { id, totalPrice, saleDate, status, seller, products } } = results;
+  static formatProductsList(results) {
+    const { id, totalPrice, saleDate, status, seller, products } = results;
 
     const productsList = {
       id,
       totalPrice,
       status,
       sellerName: seller.name,
-      productsName: products.map((product) => product.name),
+      products: products.map((product) => (
+        { name: product.name, quantity: product.SaleProduct.quantity })),
     };
-    
+
     return { ...productsList, saleDate: saleDate.toLocaleDateString('pt-BR') };
+  }
+
+  static async listProductsByOrder(userId, saleId) {
+    const results = await Sale.findOne({
+      where: { userId, id: saleId },
+      attributes: ['id', 'totalPrice', 'saleDate', 'status'],
+      include: [
+        { model: User, as: 'seller', attributes: ['name'] },
+        {
+          model: Product,
+          as: 'products',
+          attributes: ['name'],
+          through: { attributes: ['quantity'] },
+        },
+      ],
+    });
+
+    return SaleService.formatProductsList(results);
   }
 }
 
