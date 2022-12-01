@@ -6,6 +6,7 @@ const errorMiddleware = require('../middlewares/error');
 const loginRoute = require('../routes/login');
 const registerRoute = require('../routes/register');
 const productsRoute = require('../routes/products');
+const salesRoute = require('../routes/sale');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.get('/coffee', (_req, res) => res.status(418).end());
 app.use('/login', loginRoute);
 app.use('/register', registerRoute);
 app.use('/products', productsRoute);
+app.use('/sales', salesRoute);
 
 app.use(errorMiddleware);
 

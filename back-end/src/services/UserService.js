@@ -43,6 +43,13 @@ class UserService {
 
     return { name, email, role: 'customer', token };
   }
+
+  static async getSellerByName(name) {
+    const seller = await User.findOne({
+      where: { name, role: 'seller' },
+    });
+    return seller;
+  }
 }
 
 module.exports = UserService;
