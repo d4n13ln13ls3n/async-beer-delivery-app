@@ -6,6 +6,11 @@ class ProductService {
 
     return allProducts;
   }
+
+  static async getProductIdByName(name) {
+    const product = await Product.findOne({ where: { name } });
+    return product.dataValues.id;
+  }
 }
 
 module.exports = ProductService;
