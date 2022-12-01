@@ -25,6 +25,19 @@ class SaleService {
 
         await SaleProduct.bulkCreate(saleProducts);
   }
+
+  static async listAllByUserId(userId) {
+    const results = await Sale.findAll({ where: { userId }, raw: true });
+
+    const ordersList = results.map(({ id, saleDate, totalPrice, status }) => ({
+        id,
+        saleDate: saleDate.toLocaleDateString('pt-BR'),
+        totalPrice,
+        status,
+      }));
+      
+    return ordersList;
+  }
 }
 
 module.exports = SaleService;
