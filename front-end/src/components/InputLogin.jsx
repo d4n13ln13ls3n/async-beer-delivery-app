@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { signLogin } from '../services/endPointRequest';
 
 function InputLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
+  const loginFields = { email, password };
   const history = useHistory();
+
   useEffect(() => {
     const handleSign = () => {
       const minLenght = 6;
@@ -19,8 +22,16 @@ function InputLogin() {
     handleSign();
   }, [email, password]);
 
-  const handleAcess = () => {
-    console.log('test');
+  const handleAcess = async () => {
+    try {
+      console.log(loginFields);
+      await signLogin('login', loginFields);
+      // console.log('chegou aqui');
+      history.push('/customer/products');
+    } catch (error) {
+      setLogin(true);
+      console.log(error);
+    }
   };
 
   const handleCreate = () => {
@@ -56,6 +67,8 @@ function InputLogin() {
       </label>
       <br />
       <button
+        id="button"
+        value="login"
         data-testid="common_login__button-login"
         type="button"
         disabled={ isDisabled }
