@@ -16,9 +16,7 @@ import AdminPage from './pages/AdminPage';
 function App() {
   return (
     <Switch>
-      <Route exact path="/">
-        <Redirect to="/login" />
-      </Route>
+      <Redirect exact from="/" to="/login" />
       <Route path="/login" component={ Login } />
       <Route exact path="/register" component={ Register } />
       <Route exact path="/customer/products" component={ Products } />
