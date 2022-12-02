@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { signLogin } from '../services/endPointRequest';
+import loginContext from '../context/LoginContext';
 
 function InputLogin() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { email, setEmail, password, setPassword } = useContext(loginContext);
   const [isDisabled, setIsDisabled] = useState(true);
   const loginFields = { email, password };
   const history = useHistory();
@@ -24,12 +24,11 @@ function InputLogin() {
 
   const handleAcess = async () => {
     try {
-      console.log(loginFields);
+      // console.log(loginFields);
       await signLogin('login', loginFields);
       // console.log('chegou aqui');
       history.push('/customer/products');
     } catch (error) {
-      setLogin(true);
       console.log(error);
     }
   };
@@ -39,12 +38,13 @@ function InputLogin() {
   };
 
   return (
-    <div className="login-container">
+    <form className="login-container">
       <label className="label-login" htmlFor="email">
         Login:
         <br />
         <input
           id="email"
+          name="email"
           data-testid="common_login__input-email"
           type="email"
           placeholder="Digite o seu e-mail"
@@ -68,7 +68,7 @@ function InputLogin() {
       <br />
       <button
         id="button"
-        value="login"
+        value="Login"
         data-testid="common_login__button-login"
         type="button"
         disabled={ isDisabled }
@@ -84,7 +84,7 @@ function InputLogin() {
       >
         Ainda não tenho conta
       </button>
-    </div>
+    </form>
   );
 }
 
