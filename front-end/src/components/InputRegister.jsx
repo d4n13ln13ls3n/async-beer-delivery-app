@@ -1,9 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { signLogin } from '../services/endPointRequest';
+import registerContext from '../context/RegisterContext';
 
 function InputRegister() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const {
+    name,
+    setName,
+    email,
+    setEmail,
+    password,
+    setPassword,
+  } = useContext(registerContext);
+  const userFields = { name, email, password };
+  const history = useHistory();
   const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
@@ -22,8 +32,15 @@ function InputRegister() {
     handleSign();
   }, [name, email, password]);
 
-  const hadleRegister = () => {
-    console.log('registrado');
+  const hadleRegister = async () => {
+    try {
+      // console.log(loginFields);
+      await signLogin('register', userFields);
+      // console.log('chegou aqui');
+      history.push('/customer/products');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

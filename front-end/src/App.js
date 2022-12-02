@@ -12,21 +12,27 @@ import Orders from './pages/Orders';
 import Seller from './pages/Seller';
 import SellerOrderId from './pages/SellerOrderId';
 import AdminPage from './pages/AdminPage';
+import LoginProvider from './context/LoginProvider';
+import RegisterProvider from './context/RegisterProvider';
 
 function App() {
   return (
-    <Switch>
-      <Redirect exact from="/" to="/login" />
-      <Route path="/login" component={ Login } />
-      <Route exact path="/register" component={ Register } />
-      <Route exact path="/customer/products" component={ Products } />
-      <Route exact path="/customer/checkout" component={ Checkout } />
-      <Route exact path="/customer/orders/:id" component={ Order } />
-      <Route exact path="/customer/orders" component={ Orders } />
-      <Route exact path="/seller/orders" component={ Seller } />
-      <Route exact path="/seller/orders/:id" component={ SellerOrderId } />
-      <Route exact path="/admin/manage" component={ AdminPage } />
-    </Switch>
+    <LoginProvider>
+      <RegisterProvider>
+        <Switch>
+          <Redirect exact from="/" to="/login" />
+          <Route path="/login" component={ Login } />
+          <Route exact path="/register" component={ Register } />
+          <Route exact path="/customer/products" component={ Products } />
+          <Route exact path="/customer/checkout" component={ Checkout } />
+          <Route exact path="/customer/orders/:id" component={ Order } />
+          <Route exact path="/customer/orders" component={ Orders } />
+          <Route exact path="/seller/orders" component={ Seller } />
+          <Route exact path="/seller/orders/:id" component={ SellerOrderId } />
+          <Route exact path="/admin/manage" component={ AdminPage } />
+        </Switch>
+      </RegisterProvider>
+    </LoginProvider>
   );
 }
 
