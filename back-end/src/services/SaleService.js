@@ -4,13 +4,26 @@ const ProductService = require('./ProductService');
 const HttpErrorHandler = require('../middlewares/errorHandler/HttpErrorHandler');
 
 class SaleService {
-  static formatSalesListCustomer(sales) {
-    return sales.map(({ id, totalPrice, saleDate, status }) => ({
-      id,
-      totalPrice,
-      saleDate: saleDate.toLocaleDateString('pt-BR'),
-      status,
-    }));
+  static formatSalesList(sales, role) {
+    if (role === 'customer') {
+      return sales.map(({ id, totalPrice, saleDate, status }) => ({
+        id,
+        totalPrice,
+        saleDate: saleDate.toLocaleDateString('pt-BR'),
+        status,
+      }));
+    }
+
+    if (role === 'seller') {
+      return sales.map(({ id, totalPrice, saleDate, status, deliveryAddress, deliveryNumber }) => ({
+        id,
+        totalPrice,
+        saleDate: saleDate.toLocaleDateString('pt-BR'),
+        status,
+        deliveryAddress,
+        deliveryNumber,
+      }));
+    }
   }
 
   static formatProductsList(results) {
@@ -52,10 +65,18 @@ class SaleService {
     return newSale;
   }
 
-  static async listAllByUserId(userId) {
+  static async listAllByUserId(userId, role) {
     const sales = await Sale.findAll({ where: { userId } });
 
-    const ordersList = SaleService.formatSalesListCustomer(sales);
+    const ordersList = SaleService.formatSalesList(sales, role);
+
+    return ordersList;
+  }
+
+  static async listAllBySellerId(sellerId, role) {
+    const sales = await Sale.findAll({ where: { sellerId } });
+
+    const ordersList = SaleService.formatSalesList(sales, role);
 
     return ordersList;
   }
