@@ -72,19 +72,15 @@ class SaleService {
     return newSale;
   }
 
-  static async listAllByUserId(userId, role) {
+  static async listAllByUserId(userId) {
     const sales = await Sale.findAll({ where: { userId } });
-
-    const ordersList = SaleService.formatSalesList(sales, role);
-
+    const ordersList = SaleService.formatSalesList(sales, 'customer');
     return ordersList;
   }
 
-  static async listAllBySellerId(sellerId, role) {
+  static async listAllBySellerId(sellerId) {
     const sales = await Sale.findAll({ where: { sellerId } });
-
-    const ordersList = SaleService.formatSalesList(sales, role);
-
+    const ordersList = SaleService.formatSalesList(sales, 'seller');
     return ordersList;
   }
 
@@ -125,6 +121,72 @@ class SaleService {
     if (!sale) throw new HttpErrorHandler(404, 'Sale not found');
 
     return SaleService.formatProductsList(sale, 'seller');
+  }
+
+  // static async updateStatus(prevStatus, saleId) {
+  //   let status;
+
+  //   if (prevStatus === 'Pendente') status = 'Preparando';
+  //   if (prevStatus === 'Preparando') status = 'Em Trânsito';
+  //   if (prevStatus === 'Em Trânsito') status = 'Entregue';
+
+  //   const saleUpdated = await Sale.update({ status }, { where: { id: saleId } });
+
+  //   console.log(saleUpdated);
+
+  //   return saleUpdated.status;
+  // }
+
+  // static async updateStatus(saleId) {
+  //   let status;
+
+  //   const { status: prevStatus } = await Sale.findOne({ where: { id: saleId } });
+
+  //   if (prevStatus === 'Pendente') status = 'Preparando';
+  //   if (prevStatus === 'Preparando') status = 'Em Trânsito';
+  //   if (prevStatus === 'Em Trânsito') status = 'Entregue';
+
+  //   await Sale.update({ status }, { where: { id: saleId } });
+
+  //   const { status: newStatus } = await Sale.findOne({ where: { id: saleId } });
+
+  //   return newStatus;
+  // }
+
+  static async newStatusSeller(saleId) {
+    let newStatus;
+    const { status: prevStatus } = await Sale.findOne({ where: { id: saleId } });
+
+    if (prevStatus === 'Pendente') newStatus = 'Preparando';
+    if (prevStatus === 'Preparando') newStatus = 'Em Trânsito';
+
+    return newStatus;    
+  }
+
+  static async newStatusCustomer(saleId) {
+    let newStatus;
+    const { status: prevStatus } = await Sale.findOne({ where: { id: saleId } });
+
+    if (prevStatus === 'Em Trânsito') newStatus = 'Entregue';
+
+    return newStatus;    
+  }
+
+  static async updateStatus(saleId, role) {
+    let status;
+
+    if (role === 'seller') {
+      status = await SaleService.newStatusSeller(saleId);
+    }
+    if (role === 'customer') {
+      status = await SaleService.newStatusCustomer(saleId);
+    }
+
+    await Sale.update({ status }, { where: { id: saleId } });
+
+    const { status: newStatus } = await Sale.findOne({ where: { id: saleId } });
+
+    return newStatus;
   }
 }
 
