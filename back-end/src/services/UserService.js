@@ -63,6 +63,14 @@ class UserService {
     });
     return seller;
   }
+
+  static async getAllSellers() {
+    const sellers = await User.findAll({
+      where: { role: 'seller' },
+      attributes: ['name'],
+    });
+    return sellers;
+  }
 }
 
 module.exports = UserService;

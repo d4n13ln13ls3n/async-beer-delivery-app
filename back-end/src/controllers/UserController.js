@@ -12,6 +12,12 @@ class UserController {
 
     return res.status(201).json(newUser);
   }
+
+  static async getAllSellers(_req, res) {
+    const sellers = await UserService.getAllSellers();
+    
+    return res.status(200).json(sellers);
+  }
 }
 
 module.exports = UserController;
