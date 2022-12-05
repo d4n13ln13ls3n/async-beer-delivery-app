@@ -43,12 +43,11 @@ class SaleService {
         { transaction: t });
 
       const saleProducts = await Promise.all(products.map(async ({ name, quantity }) => ({
-          saleId: id,
-          productId: await ProductService.getProductIdByName(name),
-          quantity,
-        })));
+          saleId: id, productId: await ProductService.getProductIdByName(name), quantity })));
 
       await SaleProduct.bulkCreate(saleProducts, { transaction: t });
+
+      return id;
     });
     return newSale;
   }
