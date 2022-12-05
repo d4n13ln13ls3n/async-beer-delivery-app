@@ -41,7 +41,7 @@ class UserService {
   }
 
   static async register({ name, email, password }) {
-    UserService.userAlreadyExists(name, email);
+    await UserService.userAlreadyExists(name, email);
 
     const hashedPassword = md5(password);
 
