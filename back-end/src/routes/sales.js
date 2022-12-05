@@ -13,5 +13,7 @@ router.get('/:saleId/customers', auth, (req, res) =>
   SaleController.listProductsByCustomer(req, res));
 router.get('/:saleId/sellers', auth, (req, res) =>
   SaleController.listProductsBySeller(req, res));
+router.patch('/:saleId', auth, (req, res) =>
+  SaleController.updateStatus(req, res));
 
 module.exports = router;

@@ -8,14 +8,14 @@ class SaleController {
   }
 
   static async listAllByUserId(req, res) {
-    const { id: userId, role } = req.user;
-    const ordersList = await SaleService.listAllByUserId(userId, role);
+    const { id: userId } = req.user;
+    const ordersList = await SaleService.listAllByUserId(userId);
     return res.status(200).json(ordersList);
   }
 
   static async listAllBySellerId(req, res) {
-    const { id: sellerId, role } = req.user;
-    const ordersList = await SaleService.listAllBySellerId(sellerId, role);
+    const { id: sellerId } = req.user;
+    const ordersList = await SaleService.listAllBySellerId(sellerId);
     return res.status(200).json(ordersList);
   }
 
@@ -29,6 +29,14 @@ class SaleController {
     const { id: sellerId } = req.user;
     const result = await SaleService.listProductsBySeller(sellerId, req.params.saleId);
     return res.status(200).json(result);
+  }
+
+  static async updateStatus(req, res) {
+    const { saleId } = req.params;
+    const { role } = req.user;
+
+    const newStatus = await SaleService.updateStatus(saleId, role);
+    return res.status(200).json({ newStatus });
   }
 }
 
