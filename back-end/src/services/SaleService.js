@@ -26,20 +26,27 @@ class SaleService {
     }
   }
 
-  static formatProductsList(results) {
-    const { id, totalPrice, saleDate, status, seller, products } = results;
+  static formatProductsList(results, role) {
+    const { id, totalPrice, saleDate, status, products } = results;
 
-    return {
+    const saleInfo = {
       id,
       totalPrice,
       saleDate: saleDate.toLocaleDateString('pt-BR'),
       status,
-      sellerName: seller.name,
       products: products.map((product) => ({
         name: product.name,
-        quantity: product.SaleProduct.quantity,
-      })),
+        quantity: product.SaleProduct.quantity })),
     };
+
+    if (role === 'customer') {
+      const { seller } = results;
+      return { ...saleInfo, sellerName: seller.name };
+    }
+
+    if (role === 'seller') {
+      return saleInfo;
+    }
   }
 
   static async register({ userId, sellerName, totPrice, delAddress, delNumber, products }) {
@@ -81,7 +88,7 @@ class SaleService {
     return ordersList;
   }
 
-  static async listProductsBySale(userId, saleId) {
+  static async listProductsByCustomer(userId, saleId) {
     const sale = await Sale.findOne({
       where: { id: saleId, userId },
       attributes: ['id', 'totalPrice', 'saleDate', 'status'],
@@ -98,7 +105,26 @@ class SaleService {
 
     if (!sale) throw new HttpErrorHandler(404, 'Sale not found');
 
-    return SaleService.formatProductsList(sale);
+    return SaleService.formatProductsList(sale, 'customer');
+  }
+
+  static async listProductsBySeller(sellerId, saleId) {
+    const sale = await Sale.findOne({
+      where: { id: saleId, sellerId },
+      attributes: ['id', 'totalPrice', 'saleDate', 'status'],
+      include: [
+        {
+          model: Product,
+          as: 'products',
+          attributes: ['name'],
+          through: { attributes: ['quantity'] },
+        },
+      ],
+    });
+
+    if (!sale) throw new HttpErrorHandler(404, 'Sale not found');
+
+    return SaleService.formatProductsList(sale, 'seller');
   }
 }
 

@@ -19,9 +19,15 @@ class SaleController {
     return res.status(200).json(ordersList);
   }
 
-  static async listProductsBySale(req, res) {
+  static async listProductsByCustomer(req, res) {
     const { id: userId } = req.user;
-    const result = await SaleService.listProductsBySale(userId, req.params.saleId);
+    const result = await SaleService.listProductsByCustomer(userId, req.params.saleId);
+    return res.status(200).json(result);
+  }
+
+  static async listProductsBySeller(req, res) {
+    const { id: sellerId } = req.user;
+    const result = await SaleService.listProductsBySeller(sellerId, req.params.saleId);
     return res.status(200).json(result);
   }
 }
