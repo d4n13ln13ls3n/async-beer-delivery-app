@@ -1,7 +1,10 @@
 const md5 = require('md5');
+const { Op } = require('sequelize');
 const { User } = require('../database/models');
 const HttpErrorHandler = require('../middlewares/errorHandler/HttpErrorHandler');
 const tokenHelper = require('../helpers/Token');
+
+const ACCESS_NOT_GRANTED = 'Access not granted';
 
 class UserService {
   static async userAlreadyExists(name, email) {
@@ -70,6 +73,41 @@ class UserService {
       attributes: ['name'],
     });
     return sellers;
+  }
+
+  static async getAllCustomersAndUsers(role) {
+    if (role !== 'administrator') { throw new HttpErrorHandler(401, ACCESS_NOT_GRANTED); }
+
+    const users = await User.findAll({
+      where: { role: { [Op.ne]: 'administrator' } },
+      attributes: { exclude: ['password'] },
+    });
+
+    return users;
+  }
+
+  static async registerByAdmin(
+    { name, email, password, roleToRegister },
+    role,
+  ) {
+    if (role !== 'administrator') { throw new HttpErrorHandler(401, ACCESS_NOT_GRANTED); }
+
+    await UserService.userAlreadyExists(name, email);
+
+    const hashedPassword = md5(password);
+
+    await User.create({
+      name,
+      email,
+      password: hashedPassword,
+      role: roleToRegister,
+    });
+  }
+
+  static async delete(userId, role) {
+    if (role !== 'administrator') { throw new HttpErrorHandler(401, ACCESS_NOT_GRANTED); }
+
+    await User.destroy({ where: { id: userId } });
   }
 }
 

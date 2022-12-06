@@ -123,36 +123,6 @@ class SaleService {
     return SaleService.formatProductsList(sale, 'seller');
   }
 
-  // static async updateStatus(prevStatus, saleId) {
-  //   let status;
-
-  //   if (prevStatus === 'Pendente') status = 'Preparando';
-  //   if (prevStatus === 'Preparando') status = 'Em Trânsito';
-  //   if (prevStatus === 'Em Trânsito') status = 'Entregue';
-
-  //   const saleUpdated = await Sale.update({ status }, { where: { id: saleId } });
-
-  //   console.log(saleUpdated);
-
-  //   return saleUpdated.status;
-  // }
-
-  // static async updateStatus(saleId) {
-  //   let status;
-
-  //   const { status: prevStatus } = await Sale.findOne({ where: { id: saleId } });
-
-  //   if (prevStatus === 'Pendente') status = 'Preparando';
-  //   if (prevStatus === 'Preparando') status = 'Em Trânsito';
-  //   if (prevStatus === 'Em Trânsito') status = 'Entregue';
-
-  //   await Sale.update({ status }, { where: { id: saleId } });
-
-  //   const { status: newStatus } = await Sale.findOne({ where: { id: saleId } });
-
-  //   return newStatus;
-  // }
-
   static async newStatusSeller(saleId) {
     let newStatus;
     const { status: prevStatus } = await Sale.findOne({ where: { id: saleId } });
