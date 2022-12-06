@@ -26,6 +26,14 @@ class UserController {
 
     return res.status(200).json(users);
   }
+
+  static async registerByAdmin(req, res) {
+    const { role } = req.user;
+    
+    await UserService.registerByAdmin(req.body, role);
+
+    return res.status(201).end();
+  }
 }
 
 module.exports = UserController;

@@ -83,6 +83,21 @@ class UserService {
 
     return users;
   }
+
+  static async registerByAdmin({ name, email, password, roleToRegister }, role) {
+    if (role !== 'administrator') throw new HttpErrorHandler(401, 'Access not granted');
+
+    await UserService.userAlreadyExists(name, email);
+
+    const hashedPassword = md5(password);
+
+    await User.create({
+      name,
+      email,
+      password: hashedPassword,
+      role: roleToRegister,
+    });
+  }
 }
 
 module.exports = UserService;
