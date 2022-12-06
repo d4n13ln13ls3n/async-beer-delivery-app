@@ -18,6 +18,14 @@ class UserController {
     
     return res.status(200).json(sellers);
   }
+
+  static async getAllCustomersAndUsers(req, res) {
+    const { role } = req.user;
+
+    const users = await UserService.getAllCustomersAndUsers(role);
+
+    return res.status(200).json(users);
+  }
 }
 
 module.exports = UserController;

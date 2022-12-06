@@ -1,4 +1,5 @@
 const md5 = require('md5');
+const { Op } = require('sequelize');
 const { User } = require('../database/models');
 const HttpErrorHandler = require('../middlewares/errorHandler/HttpErrorHandler');
 const tokenHelper = require('../helpers/Token');
@@ -70,6 +71,17 @@ class UserService {
       attributes: ['name'],
     });
     return sellers;
+  }
+
+  static async getAllCustomersAndUsers(role) {
+    if (role !== 'administrator') throw new HttpErrorHandler(401, 'Access not granted');
+
+    const users = await User.findAll({
+      where: { role: { [Op.ne]: 'administrator' } },
+      attributes: { exclude: ['password'] },
+    });
+
+    return users;
   }
 }
 
