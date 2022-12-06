@@ -6,6 +6,7 @@ import loginContext from '../context/LoginContext';
 function InputLogin() {
   const { email, setEmail, password, setPassword } = useContext(loginContext);
   const [isDisabled, setIsDisabled] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
   const loginFields = { email, password };
   const history = useHistory();
 
@@ -13,7 +14,7 @@ function InputLogin() {
     const handleSign = () => {
       const minLenght = 6;
       const emailValidate = /\S+@\S+\.\S+/;
-      if (password.length > minLenght && email.match(emailValidate)) {
+      if (password.length >= minLenght && email.match(emailValidate)) {
         setIsDisabled(false);
       } else {
         setIsDisabled(true);
@@ -24,12 +25,14 @@ function InputLogin() {
 
   const handleAcess = async () => {
     try {
-      // console.log(loginFields);
+      console.log(loginFields);
       await signLogin('login', loginFields);
       // console.log('chegou aqui');
       history.push('/customer/products');
-    } catch (error) {
-      console.log(error);
+    } catch ({ response }) {
+      const { data: { message } } = response;
+      console.log(message);
+      setErrorMessage(message);
     }
   };
 
@@ -84,6 +87,14 @@ function InputLogin() {
       >
         Ainda não tenho conta
       </button>
+      {
+        errorMessage === '' ? '' : (
+          <span
+            data-testid="common_login__element-invalid-email"
+          >
+            { errorMessage }
+          </span>)
+      }
     </form>
   );
 }
