@@ -5,7 +5,7 @@ const chaiHttp = require("chai-http");
 const app = require("../api/app");
 
 const { User } = require("../database/models");
-const { findOneMock, successResponseMock, errorResponseMock } = require("./mocks/users");
+const { findOneMock, successLoginResponse, errorLoginResponse } = require("./mocks/users");
 const { expect } = require("chai");
 const jwt = require("jsonwebtoken");
 
@@ -38,7 +38,7 @@ describe("Testes da rota /login", () => {
     });
 
     it("retorna um objeto com name, email, role e token", () => {
-      expect(response.body).to.be.deep.equal(successResponseMock);
+      expect(response.body).to.be.deep.equal(successLoginResponse);
     });
   });
 
@@ -63,7 +63,7 @@ describe("Testes da rota /login", () => {
     });
 
     it("retorna um objeto com uma mensagem de erro", () => {
-      expect(response.body).to.be.deep.equal(errorResponseMock);
+      expect(response.body).to.be.deep.equal(errorLoginResponse);
     });
   });
 
@@ -88,7 +88,7 @@ describe("Testes da rota /login", () => {
     });
 
     it("retorna um objeto com uma mensagem de erro", () => {
-      expect(response.body).to.be.deep.equal(errorResponseMock);
+      expect(response.body).to.be.deep.equal(errorLoginResponse);
     });
   });
 });
