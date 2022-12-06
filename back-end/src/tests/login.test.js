@@ -5,7 +5,7 @@ const chaiHttp = require("chai-http");
 const app = require("../api/app");
 
 const { User } = require("../database/models");
-const { findOneMock, successResponseMock, errorResponseMock } = require("./mocks/user");
+const { findOneMock, successResponseMock, errorResponseMock } = require("./mocks/users");
 const { expect } = require("chai");
 const jwt = require("jsonwebtoken");
 
