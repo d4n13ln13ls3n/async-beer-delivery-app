@@ -34,6 +34,15 @@ class UserController {
 
     return res.status(201).end();
   }
+
+  static async delete(req, res) {
+    const { userId } = req.params;
+    const { role } = req.user;
+
+    await UserService.delete(userId, role);
+
+    return res.status(204).end();
+  }
 }
 
 module.exports = UserController;

@@ -4,6 +4,8 @@ const { User } = require('../database/models');
 const HttpErrorHandler = require('../middlewares/errorHandler/HttpErrorHandler');
 const tokenHelper = require('../helpers/Token');
 
+const ACCESS_NOT_GRANTED = 'Access not granted';
+
 class UserService {
   static async userAlreadyExists(name, email) {
     const existingName = await User.findOne({
@@ -74,7 +76,7 @@ class UserService {
   }
 
   static async getAllCustomersAndUsers(role) {
-    if (role !== 'administrator') throw new HttpErrorHandler(401, 'Access not granted');
+    if (role !== 'administrator') { throw new HttpErrorHandler(401, ACCESS_NOT_GRANTED); }
 
     const users = await User.findAll({
       where: { role: { [Op.ne]: 'administrator' } },
@@ -84,8 +86,11 @@ class UserService {
     return users;
   }
 
-  static async registerByAdmin({ name, email, password, roleToRegister }, role) {
-    if (role !== 'administrator') throw new HttpErrorHandler(401, 'Access not granted');
+  static async registerByAdmin(
+    { name, email, password, roleToRegister },
+    role,
+  ) {
+    if (role !== 'administrator') { throw new HttpErrorHandler(401, ACCESS_NOT_GRANTED); }
 
     await UserService.userAlreadyExists(name, email);
 
@@ -97,6 +102,12 @@ class UserService {
       password: hashedPassword,
       role: roleToRegister,
     });
+  }
+
+  static async delete(userId, role) {
+    if (role !== 'administrator') { throw new HttpErrorHandler(401, ACCESS_NOT_GRANTED); }
+
+    await User.destroy({ where: { id: userId } });
   }
 }
 
