@@ -4,14 +4,14 @@ import reportWebVitals from './reportWebVitals';
 import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
-// import GlobalProvider from './context/GlobalProvider';
+import GlobalProvider from './context/GlobalProvider';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-    {/* <GlobalProvider> */}
+    <GlobalProvider>
       <App />
-    {/* </GlobalProvider>     */}
+    </GlobalProvider>    
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root'),
