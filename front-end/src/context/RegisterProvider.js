@@ -3,13 +3,13 @@ import proptypes from 'prop-types';
 import RegisterContext from './RegisterContext';
 
 function RegisterProvider({ children }) {
-  const [name, setname] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const userFields = useMemo(() => ({
     name,
-    setname,
+    setName,
     email,
     setEmail,
     password,

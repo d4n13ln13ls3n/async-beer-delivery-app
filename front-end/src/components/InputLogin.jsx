@@ -2,9 +2,12 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { signLogin } from '../services/endPointRequest';
 import loginContext from '../context/LoginContext';
+import { SaveStorage } from '../services/localStorageServices';
+// import GlobalContext from '../context/GlobalContext';
 
 function InputLogin() {
   const { email, setEmail, password, setPassword } = useContext(loginContext);
+  // const { setNavBar } = useContext(GlobalContext);
   const [isDisabled, setIsDisabled] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
   const loginFields = { email, password };
@@ -26,12 +29,13 @@ function InputLogin() {
   const handleAcess = async () => {
     try {
       console.log(loginFields);
-      await signLogin('login', loginFields);
-      // console.log('chegou aqui');
+      const responseUser = await signLogin('login', loginFields);
+      // const { name, role } = JSON.parse(responseUser);
+      // setNavBar({ name, role });
+      SaveStorage('user', responseUser);
       history.push('/customer/products');
     } catch ({ response }) {
       const { data: { message } } = response;
-      console.log(message);
       setErrorMessage(message);
     }
   };
