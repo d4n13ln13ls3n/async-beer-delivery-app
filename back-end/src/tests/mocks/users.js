@@ -5,6 +5,35 @@ const findOneMock = {
   role: "administrator",
 };
 
+const findOneSellerMock = {
+  id: 2,
+  name: "Fulana Pereira",
+  email: "fulana@deliveryapp.com",
+  password: "3c28d2b0881bf46457a853e0b07531c6",
+  role: "seller",
+};
+
+const findAllMock = [
+  {
+    id: 2,
+    name: "Fulana Pereira",
+    email: "fulana@deliveryapp.com",
+    role: "seller",
+  },
+  {
+    id: 3,
+    name: "Cliente Zé Birita",
+    email: "zebirita@email.com",
+    role: "customer",
+  },
+];
+
+const findAllSellersMock = [
+  {
+    name: "Fulana Pereira",
+  },
+];
+
 const createMock = {
   id: 4,
   name: "Tayná Silva Macêdo",
@@ -41,12 +70,30 @@ const errorRegisterResponseEmail = {
   message: "Email already registered",
 };
 
+const errorListAllResponse = {
+  message: "Access not granted",
+};
+
+const errorListSellersResponse = {
+  message: "Token not found",
+};
+
+const errorListSellersInvalidTokenResponse = {
+  message: "jwt malformed",
+};
+
 module.exports = {
   findOneMock,
+  findOneSellerMock,
+  findAllMock,
+  findAllSellersMock,
   createMock,
   successLoginResponse,
   successRegisterResponse,
   errorLoginResponse,
   errorRegisterResponseName,
   errorRegisterResponseEmail,
+  errorListAllResponse,
+  errorListSellersResponse,
+  errorListSellersInvalidTokenResponse,
 };
