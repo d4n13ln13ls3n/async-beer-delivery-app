@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { signLogin } from '../services/endPointRequest';
 import registerContext from '../context/RegisterContext';
+import { SaveStorage } from '../services/localStorageServices';
 
 function InputRegister() {
   const {
@@ -15,13 +16,14 @@ function InputRegister() {
   const userFields = { name, email, password };
   const history = useHistory();
   const [isDisabled, setIsDisabled] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const handleSign = () => {
       const minNameLength = 12;
       const minLength = 6;
       const emailValidate = /\S+@\S+\.\S+/;
-      if (password.length > minLength
+      if (password.length >= minLength
         && email.match(emailValidate)
         && name.length >= minNameLength) {
         setIsDisabled(false);
@@ -35,11 +37,12 @@ function InputRegister() {
   const hadleRegister = async () => {
     try {
       // console.log(loginFields);
-      await signLogin('register', userFields);
-      // console.log('chegou aqui');
+      const responseUser = await signLogin('register', userFields);
+      SaveStorage('user', responseUser);
       history.push('/customer/products');
-    } catch (error) {
-      console.log(error);
+    } catch ({ response }) {
+      const { data: { message } } = response;
+      setErrorMessage(message);
     }
   };
 
@@ -91,6 +94,14 @@ function InputRegister() {
       >
         CADASTRAR
       </button>
+      {
+        errorMessage === '' ? '' : (
+          <span
+            data-testid="common_register__element-invalid_register"
+          >
+            { errorMessage }
+          </span>)
+      }
 
     </div>
   );
