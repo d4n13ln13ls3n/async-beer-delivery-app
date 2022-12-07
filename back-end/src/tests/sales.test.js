@@ -6,7 +6,7 @@ const app = require("../api/app");
 
 const { User, Sale, Product, SaleProduct } = require("../database/models");
 const { customerToken, findOneSellerMock, sellerToken } = require("./mocks/users");
-const { createMock, findAllMock, listAllCustomerResponse, listAllSellerResponse, findOneMock, listProductsCustomerResponse } = require("./mocks/sales");
+const { createMock, findAllMock, listAllCustomerResponse, listAllSellerResponse, findOneMock, listProductsCustomerResponse, listProductsSellerResponse } = require("./mocks/sales");
 const { expect } = require("chai");
 const {
   findOneMockFirstResult,
@@ -143,6 +143,33 @@ describe('Testes da rota sales/:saleId/customers', () => {
 
     it("retorna um objeto com os detalhes de um pedido específico", () => {
       expect(response.body).to.be.deep.equal(listProductsCustomerResponse);
+    });
+  })
+})
+
+describe('Testes da rota sales/:saleId/sellers', () => {
+  describe('Verifica se é possível listar os detalhes de um pedido específico de um vendedor', () => {
+    let response;
+
+    before(async () => {
+      sinon.stub(Sale, "findOne").resolves(findOneMock);
+
+      response = await chai
+        .request(app)
+        .get("/sales/1/sellers")
+        .set("Authorization", sellerToken);
+    });
+
+    after(() => {
+      sinon.restore();
+    });
+
+    it("retorna status 200", () => {
+      expect(response.status).to.be.equal(200);
+    });
+
+    it("retorna um objeto com os detalhes de um pedido específico", () => {
+      expect(response.body).to.be.deep.equal(listProductsSellerResponse);
     });
   })
 })
