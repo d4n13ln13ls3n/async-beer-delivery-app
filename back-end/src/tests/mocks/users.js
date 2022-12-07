@@ -1,3 +1,11 @@
+const adminToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkRlbGl2ZXJ5IEFwcCBBZG1pbiIsImVtYWlsIjoiYWRtQGRlbGl2ZXJ5YXBwLmNvbSIsInJvbGUiOiJhZG1pbmlzdHJhdG9yIiwiaWF0IjoxNjcwNDM2ODQzfQ.L-HOjyC3Fpshu7tOfWc2iwgMsMbcZW_0AHHXEUiy2bs"
+
+const customerToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6IkNsaWVudGUgWsOpIEJpcml0YSIsImVtYWlsIjoiemViaXJpdGFAZW1haWwuY29tIiwicm9sZSI6ImN1c3RvbWVyIiwiaWF0IjoxNjcwNDM2Nzc1fQ.a-ZG3t60qIkrwehzh4O6ygo1SGfkIwE71jvVprN00xI"
+
+const sellerToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkZ1bGFuYSBQZXJlaXJhIiwiZW1haWwiOiJmdWxhbmFAZGVsaXZlcnlhcHAuY29tIiwicm9sZSI6InNlbGxlciIsImlhdCI6MTY3MDQzNjkzMX0.i4Qij6uK1nwaEQ_oJMlhSCGXNB5PW63SlodYDCVOPf4"
+
+const newCustomerToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwibmFtZSI6IlRheW7DoSBTaWx2YSBNYWPDqmRvIiwiZW1haWwiOiJ0YXluYV9zbTE5OTZAaG90bWFpbC5jb20iLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE2NzA0MzcyMjV9.IW3ABlCQcLqWeoFeo6dcoNotB6RnDu4KLBzHUE90vOk"
+
 const findOneMock = {
   id: 1,
   name: "Delivery App Admin",
@@ -46,16 +54,14 @@ const successLoginResponse = {
   name: "Delivery App Admin",
   email: "adm@deliveryapp.com",
   role: "administrator",
-  token:
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkRlbGl2ZXJ5IEFwcCBBZG1pbiIsImVtYWlsIjoiYWRtQGRlbGl2ZXJ5YXBwLmNvbSIsInJvbGUiOiJhZG1pbmlzdHJhdG9yIiwiaWF0IjoxNjcwMzU0Mjk0LCJleHAiOjE2NzA0NDA2OTR9.eXdA9bSak7Th_b2hPvx99ftoEVaLFbFUGNmH3Ns2unQ",
+  token: adminToken,
 };
 
 const successRegisterResponse = {
   name: "Tayná Silva Macêdo",
   email: "tayna_sm1996@hotmail.com",
   role: "customer",
-  token:
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwibmFtZSI6IlRheW7DoSBTaWx2YSBNYWPDqmRvIiwiZW1haWwiOiJ0YXluYV9zbTE5OTZAaG90bWFpbC5jb20iLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE2NzAzNTkxNTIsImV4cCI6MTY3MDQ0NTU1Mn0.6DBmMfxe1cjx9KuzKelXjoesZue6SDQ3zREmseg2-aA",
+  token: newCustomerToken,
 };
 
 const errorLoginResponse = {
@@ -82,6 +88,7 @@ const errorListSellersInvalidTokenResponse = {
   message: "jwt malformed",
 };
 
+
 module.exports = {
   findOneMock,
   findOneSellerMock,
@@ -96,4 +103,8 @@ module.exports = {
   errorListAllResponse,
   errorListSellersResponse,
   errorListSellersInvalidTokenResponse,
+  adminToken,
+  customerToken,
+  sellerToken,
+  newCustomerToken,
 };

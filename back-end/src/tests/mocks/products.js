@@ -67,4 +67,18 @@ const findAllMock = [
   },
 ];
 
-module.exports = { findAllMock };
+const findOneMockFirstResult = {
+  id: 3,
+  name: "Antarctica Pilsen 300ml",
+  price: "2.49",
+  urlImage: "http://localhost:3001/images/antarctica_pilsen_300ml.jpg",
+};
+
+const findOneSecondResult =   {
+  id: 6,
+  name: "Skol Beats Senses 313ml",
+  price: "4.49",
+  urlImage: "http://localhost:3001/images/skol_beats_senses_313ml.jpg",
+}
+
+module.exports = { findAllMock, findOneMockFirstResult, findOneSecondResult };
