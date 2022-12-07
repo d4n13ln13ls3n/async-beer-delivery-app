@@ -6,7 +6,7 @@ const app = require("../api/app");
 
 const { User, Sale, Product, SaleProduct } = require("../database/models");
 const { customerToken, findOneSellerMock, sellerToken } = require("./mocks/users");
-const { createMock, findAllMock, listAllCustomerResponse, listAllSellerResponse, findOneMock, listProductsCustomerResponse, listProductsSellerResponse } = require("./mocks/sales");
+const { createMock, findAllMock, listAllCustomerResponse, listAllSellerResponse, findOneMock, listProductsCustomerResponse, listProductsSellerResponse, findOnePreparandoMock, updateStatusPreparandoResponse, findOneEmTransitoMock, updateStatusEmTransitoResponse, findOneEntregueMock, updateStatusEntregueResponse } = require("./mocks/sales");
 const { expect } = require("chai");
 const {
   findOneMockFirstResult,
@@ -170,6 +170,86 @@ describe('Testes da rota sales/:saleId/sellers', () => {
 
     it("retorna um objeto com os detalhes de um pedido específico", () => {
       expect(response.body).to.be.deep.equal(listProductsSellerResponse);
+    });
+  })
+})
+
+describe('Testes da rota sales/:saleId', () => {
+  describe('Verifica se é possível atualizar o status do pedido de "Pendente" para "Preparando" com sucesso', () => {
+    let response;
+
+    before(async () => {
+      sinon.stub(Sale, "findOne").onCall(0).resolves(findOneMock).onCall(1).resolves(findOnePreparandoMock);
+      sinon.stub(Sale, 'update').resolves(null);
+
+      response = await chai
+        .request(app)
+        .patch("/sales/1")
+        .set("Authorization", sellerToken);
+    });
+
+    after(() => {
+      sinon.restore();
+    });
+
+    it("retorna status 200", () => {
+      expect(response.status).to.be.equal(200);
+    });
+
+    it("retorna um objeto com o novo status do pedido", () => {
+      expect(response.body).to.be.deep.equal(updateStatusPreparandoResponse);
+    });
+  })
+
+  describe('Verifica se é possível atualizar o status do pedido de "Preparando" para "Em Trânsito" com sucesso', () => {
+    let response;
+
+    before(async () => {
+      sinon.stub(Sale, "findOne").onCall(0).resolves(findOnePreparandoMock).onCall(1).resolves(findOneEmTransitoMock);
+      sinon.stub(Sale, 'update').resolves(null);
+
+      response = await chai
+        .request(app)
+        .patch("/sales/1")
+        .set("Authorization", sellerToken);
+    });
+
+    after(() => {
+      sinon.restore();
+    });
+
+    it("retorna status 200", () => {
+      expect(response.status).to.be.equal(200);
+    });
+
+    it("retorna um objeto com o novo status do pedido", () => {
+      expect(response.body).to.be.deep.equal(updateStatusEmTransitoResponse);
+    });
+  })
+
+  describe('Verifica se é possível atualizar o status do pedido de "Em Trânsito" para "Entregue" com sucesso', () => {
+    let response;
+
+    before(async () => {
+      sinon.stub(Sale, "findOne").onCall(0).resolves(findOneEmTransitoMock).onCall(1).resolves(findOneEntregueMock);
+      sinon.stub(Sale, 'update').resolves(null);
+
+      response = await chai
+        .request(app)
+        .patch("/sales/1")
+        .set("Authorization", customerToken);
+    });
+
+    after(() => {
+      sinon.restore();
+    });
+
+    it("retorna status 200", () => {
+      expect(response.status).to.be.equal(200);
+    });
+
+    it("retorna um objeto com o novo status do pedido", () => {
+      expect(response.body).to.be.deep.equal(updateStatusEntregueResponse);
     });
   })
 })

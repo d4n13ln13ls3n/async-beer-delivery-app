@@ -33,6 +33,42 @@ const findOneMock = {
   ],
 };
 
+const findOnePreparandoMock = {
+  id: 1,
+  totalPrice: "137.64",
+  saleDate: new Date("2022-12-07T19:13:53.000Z"),
+  status: "Preparando",
+  seller: { name: "Fulana Pereira" },
+  products: [
+    { name: "Antarctica Pilsen 300ml", SaleProduct: { quantity: 12 } },
+    { name: "Skol Beats Senses 313ml", SaleProduct: { quantity: 24 } },
+  ],
+};
+
+const findOneEmTransitoMock = {
+  id: 1,
+  totalPrice: "137.64",
+  saleDate: new Date("2022-12-07T19:13:53.000Z"),
+  status: "Em Trânsito",
+  seller: { name: "Fulana Pereira" },
+  products: [
+    { name: "Antarctica Pilsen 300ml", SaleProduct: { quantity: 12 } },
+    { name: "Skol Beats Senses 313ml", SaleProduct: { quantity: 24 } },
+  ],
+};
+
+const findOneEntregueMock = {
+  id: 1,
+  totalPrice: "137.64",
+  saleDate: new Date("2022-12-07T19:13:53.000Z"),
+  status: "Entregue",
+  seller: { name: "Fulana Pereira" },
+  products: [
+    { name: "Antarctica Pilsen 300ml", SaleProduct: { quantity: 12 } },
+    { name: "Skol Beats Senses 313ml", SaleProduct: { quantity: 24 } },
+  ],
+};
+
 const listAllCustomerResponse = [
   {
     id: 1,
@@ -88,12 +124,30 @@ const listProductsSellerResponse = {
   ],
 };
 
+const updateStatusPreparandoResponse = {
+  newStatus: "Preparando",
+};
+
+const updateStatusEmTransitoResponse = {
+  newStatus: "Em Trânsito",
+};
+
+const updateStatusEntregueResponse = {
+  newStatus: "Entregue",
+};
+
 module.exports = {
   createMock,
   findAllMock,
   findOneMock,
+  findOnePreparandoMock,
+  findOneEmTransitoMock,
+  findOneEntregueMock,
   listAllCustomerResponse,
   listAllSellerResponse,
   listProductsCustomerResponse,
   listProductsSellerResponse,
+  updateStatusPreparandoResponse,
+  updateStatusEmTransitoResponse,
+  updateStatusEntregueResponse,
 };
