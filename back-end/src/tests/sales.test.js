@@ -5,8 +5,8 @@ const chaiHttp = require("chai-http");
 const app = require("../api/app");
 
 const { User, Sale, Product, SaleProduct } = require("../database/models");
-const { customerToken, findOneSellerMock } = require("./mocks/users");
-const { createMock, findAllMock, listAllCustomerResponse } = require("./mocks/sales");
+const { customerToken, findOneSellerMock, sellerToken } = require("./mocks/users");
+const { createMock, findAllMock, listAllCustomerResponse, listAllSellerResponse, findOneMock, listProductsCustomerResponse } = require("./mocks/sales");
 const { expect } = require("chai");
 const {
   findOneMockFirstResult,
@@ -88,8 +88,61 @@ describe('Testes da rota /sales/customers', () => {
     });
 
     it("retorna um array de objetos com as informações dos pedidos", () => {
-      console.log(response.body);
       expect(response.body).to.be.deep.equal(listAllCustomerResponse);
+    });
+  })
+})
+
+describe('Testes da rota /sales/sellers', () => {
+  describe('Verifica se é possível listar todas vendas feitas por um vendedor com sucesso', () => {
+    let response;
+
+    before(async () => {
+      sinon.stub(Sale, "findAll").resolves(findAllMock);
+
+      response = await chai
+        .request(app)
+        .get("/sales/sellers")
+        .set("Authorization", sellerToken);
+    });
+
+    after(() => {
+      sinon.restore();
+    });
+
+    it("retorna status 200", () => {
+      expect(response.status).to.be.equal(200);
+    });
+
+    it("retorna um array de objetos com as informações dos pedidos", () => {
+      expect(response.body).to.be.deep.equal(listAllSellerResponse);
+    });
+  })
+})
+
+describe('Testes da rota sales/:saleId/customers', () => {
+  describe('Verifica se é possível listar os detalhes de um pedido específico de um cliente', () => {
+    let response;
+
+    before(async () => {
+      sinon.stub(Sale, "findOne").resolves(findOneMock);
+
+      response = await chai
+        .request(app)
+        .get("/sales/1/customers")
+        .set("Authorization", customerToken);
+    });
+
+    after(() => {
+      sinon.restore();
+    });
+
+    it("retorna status 200", () => {
+      expect(response.status).to.be.equal(200);
+    });
+
+    it("retorna um objeto com os detalhes de um pedido específico", () => {
+      expect(response.body).to.be.deep.equal(listProductsCustomerResponse);
     });
   })
 })
