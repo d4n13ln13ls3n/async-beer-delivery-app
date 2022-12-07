@@ -53,7 +53,6 @@ describe("Testes da rota /sales", () => {
         .onCall(1)
         .resolves(findOneSecondResult);
       sinon.stub(SaleProduct, "bulkCreate").resolves(null);
-      sinon.stub(sequelize, "transaction").resolves(1);
 
       response = await chai
         .request(app)
