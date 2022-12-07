@@ -12,6 +12,11 @@ export const signLogin = async (endpoint, body) => {
   return data;
 };
 
+export const getAllProducts = async (endpoint) => {
+  const { data } = await endpointRequest.get(endpoint);
+  return data;
+};
+
 export const getData = async (endpoint) => {
   console.log();
   const { data } = await endpointRequest.get(endpoint);
