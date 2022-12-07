@@ -4,9 +4,33 @@ const chaiHttp = require("chai-http");
 
 const app = require("../api/app");
 
-const { User, Sale, Product, SaleProduct } = require("../database/models");
-const { customerToken, findOneSellerMock, sellerToken } = require("./mocks/users");
-const { createMock, findAllMock, listAllCustomerResponse, listAllSellerResponse, findOneMock, listProductsCustomerResponse, listProductsSellerResponse, findOnePreparandoMock, updateStatusPreparandoResponse, findOneEmTransitoMock, updateStatusEmTransitoResponse, findOneEntregueMock, updateStatusEntregueResponse } = require("./mocks/sales");
+const {
+  User,
+  Sale,
+  Product,
+  SaleProduct,
+  sequelize,
+} = require("../database/models");
+const {
+  customerToken,
+  findOneSellerMock,
+  sellerToken,
+} = require("./mocks/users");
+const {
+  createMock,
+  findAllMock,
+  listAllCustomerResponse,
+  listAllSellerResponse,
+  findOneMock,
+  listProductsCustomerResponse,
+  listProductsSellerResponse,
+  findOnePreparandoMock,
+  updateStatusPreparandoResponse,
+  findOneEmTransitoMock,
+  updateStatusEmTransitoResponse,
+  findOneEntregueMock,
+  updateStatusEntregueResponse,
+} = require("./mocks/sales");
 const { expect } = require("chai");
 const {
   findOneMockFirstResult,
@@ -29,6 +53,7 @@ describe("Testes da rota /sales", () => {
         .onCall(1)
         .resolves(findOneSecondResult);
       sinon.stub(SaleProduct, "bulkCreate").resolves(null);
+      sinon.stub(sequelize, "transaction").resolves(1);
 
       response = await chai
         .request(app)
@@ -66,8 +91,8 @@ describe("Testes da rota /sales", () => {
   });
 });
 
-describe('Testes da rota /sales/customers', () => {
-  describe('Verifica se é possível listar todos os pedidos de um cliente com sucesso', () => {
+describe("Testes da rota /sales/customers", () => {
+  describe("Verifica se é possível listar todos os pedidos de um cliente com sucesso", () => {
     let response;
 
     before(async () => {
@@ -90,11 +115,11 @@ describe('Testes da rota /sales/customers', () => {
     it("retorna um array de objetos com as informações dos pedidos", () => {
       expect(response.body).to.be.deep.equal(listAllCustomerResponse);
     });
-  })
-})
+  });
+});
 
-describe('Testes da rota /sales/sellers', () => {
-  describe('Verifica se é possível listar todas vendas feitas por um vendedor com sucesso', () => {
+describe("Testes da rota /sales/sellers", () => {
+  describe("Verifica se é possível listar todas vendas feitas por um vendedor com sucesso", () => {
     let response;
 
     before(async () => {
@@ -117,11 +142,11 @@ describe('Testes da rota /sales/sellers', () => {
     it("retorna um array de objetos com as informações dos pedidos", () => {
       expect(response.body).to.be.deep.equal(listAllSellerResponse);
     });
-  })
-})
+  });
+});
 
-describe('Testes da rota sales/:saleId/customers', () => {
-  describe('Verifica se é possível listar os detalhes de um pedido específico de um cliente', () => {
+describe("Testes da rota sales/:saleId/customers", () => {
+  describe("Verifica se é possível listar os detalhes de um pedido específico de um cliente", () => {
     let response;
 
     before(async () => {
@@ -144,11 +169,11 @@ describe('Testes da rota sales/:saleId/customers', () => {
     it("retorna um objeto com os detalhes de um pedido específico", () => {
       expect(response.body).to.be.deep.equal(listProductsCustomerResponse);
     });
-  })
-})
+  });
+});
 
-describe('Testes da rota sales/:saleId/sellers', () => {
-  describe('Verifica se é possível listar os detalhes de um pedido específico de um vendedor', () => {
+describe("Testes da rota sales/:saleId/sellers", () => {
+  describe("Verifica se é possível listar os detalhes de um pedido específico de um vendedor", () => {
     let response;
 
     before(async () => {
@@ -171,16 +196,21 @@ describe('Testes da rota sales/:saleId/sellers', () => {
     it("retorna um objeto com os detalhes de um pedido específico", () => {
       expect(response.body).to.be.deep.equal(listProductsSellerResponse);
     });
-  })
-})
+  });
+});
 
-describe('Testes da rota sales/:saleId', () => {
+describe("Testes da rota sales/:saleId", () => {
   describe('Verifica se é possível atualizar o status do pedido de "Pendente" para "Preparando" com sucesso', () => {
     let response;
 
     before(async () => {
-      sinon.stub(Sale, "findOne").onCall(0).resolves(findOneMock).onCall(1).resolves(findOnePreparandoMock);
-      sinon.stub(Sale, 'update').resolves(null);
+      sinon
+        .stub(Sale, "findOne")
+        .onCall(0)
+        .resolves(findOneMock)
+        .onCall(1)
+        .resolves(findOnePreparandoMock);
+      sinon.stub(Sale, "update").resolves(null);
 
       response = await chai
         .request(app)
@@ -199,14 +229,19 @@ describe('Testes da rota sales/:saleId', () => {
     it("retorna um objeto com o novo status do pedido", () => {
       expect(response.body).to.be.deep.equal(updateStatusPreparandoResponse);
     });
-  })
+  });
 
   describe('Verifica se é possível atualizar o status do pedido de "Preparando" para "Em Trânsito" com sucesso', () => {
     let response;
 
     before(async () => {
-      sinon.stub(Sale, "findOne").onCall(0).resolves(findOnePreparandoMock).onCall(1).resolves(findOneEmTransitoMock);
-      sinon.stub(Sale, 'update').resolves(null);
+      sinon
+        .stub(Sale, "findOne")
+        .onCall(0)
+        .resolves(findOnePreparandoMock)
+        .onCall(1)
+        .resolves(findOneEmTransitoMock);
+      sinon.stub(Sale, "update").resolves(null);
 
       response = await chai
         .request(app)
@@ -225,14 +260,19 @@ describe('Testes da rota sales/:saleId', () => {
     it("retorna um objeto com o novo status do pedido", () => {
       expect(response.body).to.be.deep.equal(updateStatusEmTransitoResponse);
     });
-  })
+  });
 
   describe('Verifica se é possível atualizar o status do pedido de "Em Trânsito" para "Entregue" com sucesso', () => {
     let response;
 
     before(async () => {
-      sinon.stub(Sale, "findOne").onCall(0).resolves(findOneEmTransitoMock).onCall(1).resolves(findOneEntregueMock);
-      sinon.stub(Sale, 'update').resolves(null);
+      sinon
+        .stub(Sale, "findOne")
+        .onCall(0)
+        .resolves(findOneEmTransitoMock)
+        .onCall(1)
+        .resolves(findOneEntregueMock);
+      sinon.stub(Sale, "update").resolves(null);
 
       response = await chai
         .request(app)
@@ -251,5 +291,5 @@ describe('Testes da rota sales/:saleId', () => {
     it("retorna um objeto com o novo status do pedido", () => {
       expect(response.body).to.be.deep.equal(updateStatusEntregueResponse);
     });
-  })
-})
+  });
+});

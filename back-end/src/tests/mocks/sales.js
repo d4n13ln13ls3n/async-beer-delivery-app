@@ -1,6 +1,6 @@
 const createMock = {
   id: 1,
-  userId: 2,
+  userId: 3,
   sellerId: 2,
   totalPrice: 137.64,
   deliveryAddress: "Av. Paulista",
