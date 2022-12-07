@@ -3,11 +3,11 @@ import { useHistory } from 'react-router-dom';
 import { signLogin } from '../services/endPointRequest';
 import loginContext from '../context/LoginContext';
 import { SaveStorage } from '../services/localStorageServices';
-// import GlobalContext from '../context/GlobalContext';
+import GlobalContext from '../context/GlobalContext';
 
 function InputLogin() {
   const { email, setEmail, password, setPassword } = useContext(loginContext);
-  // const { setNavBar } = useContext(GlobalContext);
+  const { setUser, setLogin } = useContext(GlobalContext);
   const [isDisabled, setIsDisabled] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
   const loginFields = { email, password };
@@ -26,14 +26,24 @@ function InputLogin() {
     handleSign();
   }, [email, password]);
 
+  const defineRoute = (role) => {
+    if (role === 'seller') return '/seller/orders';
+    if (role === 'customer') return '/customer/products';
+    if (role === 'admin') return '/admin/manage';
+    return null;
+  };
+
   const handleAcess = async () => {
     try {
       console.log(loginFields);
       const responseUser = await signLogin('login', loginFields);
-      // const { name, role } = JSON.parse(responseUser);
-      // setNavBar({ name, role });
+      const { name, role } = responseUser;
       SaveStorage('user', responseUser);
-      history.push('/customer/products');
+      SaveStorage('token', responseUser.token);
+      setUser(name, role);
+      setLogin(true);
+      const route = defineRoute(role);
+      history.push(route);
     } catch ({ response }) {
       const { data: { message } } = response;
       setErrorMessage(message);

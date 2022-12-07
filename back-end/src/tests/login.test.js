@@ -5,7 +5,7 @@ const chaiHttp = require("chai-http");
 const app = require("../api/app");
 
 const { User } = require("../database/models");
-const { findOneMock, successLoginResponse, errorLoginResponse } = require("./mocks/users");
+const { findOneMock, successLoginResponse, errorLoginResponse, adminToken } = require("./mocks/users");
 const { expect } = require("chai");
 const jwt = require("jsonwebtoken");
 
@@ -19,9 +19,7 @@ describe("Testes da rota /login", () => {
       sinon.stub(User, "findOne").resolves(findOneMock);
       sinon
         .stub(jwt, "sign")
-        .returns(
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkRlbGl2ZXJ5IEFwcCBBZG1pbiIsImVtYWlsIjoiYWRtQGRlbGl2ZXJ5YXBwLmNvbSIsInJvbGUiOiJhZG1pbmlzdHJhdG9yIiwiaWF0IjoxNjcwMzU0Mjk0LCJleHAiOjE2NzA0NDA2OTR9.eXdA9bSak7Th_b2hPvx99ftoEVaLFbFUGNmH3Ns2unQ"
-        );
+        .returns(adminToken);
 
       response = await chai.request(app).post("/login").send({
         email: "adm@deliveryapp.com",

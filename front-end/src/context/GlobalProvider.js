@@ -5,7 +5,7 @@ import GlobalContext from './GlobalContext';
 function GlobalProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [login, setLogin] = useState(true);
-  const [navbar, setNavbar] = useState({
+  const [user, setUser] = useState({
     role: 'customer',
     name: '',
     pageOrder: false,
@@ -16,9 +16,9 @@ function GlobalProvider({ children }) {
     setLoading,
     login,
     setLogin,
-    navbar,
-    setNavbar,
-  }), [loading, login, navbar]);
+    user,
+    setUser,
+  }), [loading, login, user]);
 
   return (
     <GlobalContext.Provider value={ context }>
