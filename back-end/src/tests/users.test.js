@@ -14,6 +14,9 @@ const {
   findOneSellerMock,
   errorRegisterResponseName,
   errorRegisterResponseEmail,
+  adminToken,
+  sellerToken,
+  customerToken,
 } = require("./mocks/users");
 const { expect } = require("chai");
 
@@ -22,8 +25,7 @@ chai.use(chaiHttp);
 describe("Testes da rota /users", () => {
   describe("Verifica se é possível listar todos os vendedores e clientes com sucesso", async () => {
     let response;
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkRlbGl2ZXJ5IEFwcCBBZG1pbiIsImVtYWlsIjoiYWRtQGRlbGl2ZXJ5YXBwLmNvbSIsInJvbGUiOiJhZG1pbmlzdHJhdG9yIiwiaWF0IjoxNjcwMzYyMjcyLCJleHAiOjE2NzA0NDg2NzJ9.a-uDyD4gpKbJZ-4clkgmEEo_4USOUiSwSv0LxlCQ0L0";
+    const token = adminToken;
 
     before(async () => {
       sinon.stub(User, "findAll").resolves(findAllMock);
@@ -49,8 +51,7 @@ describe("Testes da rota /users", () => {
 
   describe("Verifica se não é possível listar todos os vendedores e clientes quando o token não é de administrador", async () => {
     let response;
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkZ1bGFuYSBQZXJlaXJhIiwiZW1haWwiOiJmdWxhbmFAZGVsaXZlcnlhcHAuY29tIiwicm9sZSI6InNlbGxlciIsImlhdCI6MTY3MDM2Mjc3MiwiZXhwIjoxNjcwNDQ5MTcyfQ.eYK2z-E6RP36q90gcvA75tfBGWMxaD3IHUIGsaiBkfY";
+    const token = sellerToken;
 
     before(async () => {
       response = await chai
@@ -74,8 +75,7 @@ describe("Testes da rota /users", () => {
 
   describe("Verifica se é possível cadastrar um novo vendedor com sucesso", async () => {
     let response;
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkRlbGl2ZXJ5IEFwcCBBZG1pbiIsImVtYWlsIjoiYWRtQGRlbGl2ZXJ5YXBwLmNvbSIsInJvbGUiOiJhZG1pbmlzdHJhdG9yIiwiaWF0IjoxNjcwMzYyMjcyLCJleHAiOjE2NzA0NDg2NzJ9.a-uDyD4gpKbJZ-4clkgmEEo_4USOUiSwSv0LxlCQ0L0";
+    const token = adminToken;
 
     before(async () => {
       sinon.stub(User, "findOne").resolves(null);
@@ -104,8 +104,7 @@ describe("Testes da rota /users", () => {
 
   describe("Verifica se não é possível cadastrar um novo vendedor se o token não for de administrador", async () => {
     let response;
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkZ1bGFuYSBQZXJlaXJhIiwiZW1haWwiOiJmdWxhbmFAZGVsaXZlcnlhcHAuY29tIiwicm9sZSI6InNlbGxlciIsImlhdCI6MTY3MDM2Mjc3MiwiZXhwIjoxNjcwNDQ5MTcyfQ.eYK2z-E6RP36q90gcvA75tfBGWMxaD3IHUIGsaiBkfY";
+    const token = customerToken;
 
     before(async () => {
       response = await chai
@@ -135,8 +134,7 @@ describe("Testes da rota /users", () => {
 
   describe("Verifica se não é possível cadastrar um novo vendedor se o nome já existir", async () => {
     let response;
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkRlbGl2ZXJ5IEFwcCBBZG1pbiIsImVtYWlsIjoiYWRtQGRlbGl2ZXJ5YXBwLmNvbSIsInJvbGUiOiJhZG1pbmlzdHJhdG9yIiwiaWF0IjoxNjcwMzYyMjcyLCJleHAiOjE2NzA0NDg2NzJ9.a-uDyD4gpKbJZ-4clkgmEEo_4USOUiSwSv0LxlCQ0L0";
+    const token = adminToken;
 
     before(async () => {
       sinon.stub(User, "findOne").resolves(findOneSellerMock);
@@ -168,8 +166,7 @@ describe("Testes da rota /users", () => {
 
   describe("Verifica se não é possível cadastrar um novo vendedor se o email já existir", async () => {
     let response;
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkRlbGl2ZXJ5IEFwcCBBZG1pbiIsImVtYWlsIjoiYWRtQGRlbGl2ZXJ5YXBwLmNvbSIsInJvbGUiOiJhZG1pbmlzdHJhdG9yIiwiaWF0IjoxNjcwMzYyMjcyLCJleHAiOjE2NzA0NDg2NzJ9.a-uDyD4gpKbJZ-4clkgmEEo_4USOUiSwSv0LxlCQ0L0";
+    const token = adminToken;
 
     before(async () => {
       sinon
@@ -208,8 +205,7 @@ describe("Testes da rota /users", () => {
 describe("Testes da rota /users/sellers", () => {
   describe("Verifica se é possível listar todos os vendedores com sucesso", async () => {
     let response;
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6IkNsaWVudGUgWsOpIEJpcml0YSIsImVtYWlsIjoiemViaXJpdGFAZW1haWwuY29tIiwicm9sZSI6ImN1c3RvbWVyIiwiaWF0IjoxNjcwMzYzMTc4LCJleHAiOjE2NzA0NDk1Nzh9.ccbssZhyzPbmoJwDsn-CuQUpoBb58Tx5h3-Atxk85fI";
+    const token = adminToken;
 
     before(async () => {
       sinon.stub(User, "findAll").resolves(findAllSellersMock);
@@ -283,8 +279,7 @@ describe("Testes da rota /users/sellers", () => {
 describe("Testes da rota /users/:userId", () => {
   describe("Verifica se é possível excluir um usuário com sucesso", async () => {
     let response;
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkRlbGl2ZXJ5IEFwcCBBZG1pbiIsImVtYWlsIjoiYWRtQGRlbGl2ZXJ5YXBwLmNvbSIsInJvbGUiOiJhZG1pbmlzdHJhdG9yIiwiaWF0IjoxNjcwMzYyMjcyLCJleHAiOjE2NzA0NDg2NzJ9.a-uDyD4gpKbJZ-4clkgmEEo_4USOUiSwSv0LxlCQ0L0";
+    const token = adminToken;
 
     before(async () => {
       sinon.stub(User, "destroy").resolves(null);
@@ -306,8 +301,7 @@ describe("Testes da rota /users/:userId", () => {
 
   describe("Verifica se não é possível excluir um usuário caso o token não seja de administrador", async () => {
     let response;
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6IkNsaWVudGUgWsOpIEJpcml0YSIsImVtYWlsIjoiemViaXJpdGFAZW1haWwuY29tIiwicm9sZSI6ImN1c3RvbWVyIiwiaWF0IjoxNjcwMzYzMTc4LCJleHAiOjE2NzA0NDk1Nzh9.ccbssZhyzPbmoJwDsn-CuQUpoBb58Tx5h3-Atxk85fI";
+    const token = sellerToken;
 
     before(async () => {
       response = await chai
