@@ -43,6 +43,7 @@ function InputLogin() {
       setUser(name, role);
       setLogin(true);
       const route = defineRoute(role);
+      console.log(route);
       history.push(route);
     } catch ({ response }) {
       const { data: { message } } = response;

@@ -22,7 +22,7 @@ export default function Navbar() {
     <GenericLink
       route={ `${contentForEachRole[userRole].url}` }
       name={ `${contentForEachRole[userRole].text}` }
-      data-testid="customer_products__element-navbar-link-orders"
+      testid="customer_products__element-navbar-link-orders"
     />
   );
 
@@ -32,19 +32,19 @@ export default function Navbar() {
         <GenericLink
           route="/customer/products"
           name="Produtos"
-          data-testid="customer_products__element-navbar-link-products"
+          testid="customer_products__element-navbar-link-products"
         />
       )}
       {userRole && defineLink()}
       <GenericLink
         route="/user"
         name={ userName }
-        data-testid="customer_products__element-navbar-user-full-name"
+        testid="customer_products__element-navbar-user-full-name"
       />
       <GenericLink
         route="/"
         name="Sair"
-        data-testid="customer_products__element-navbar-link-logout"
+        testid="customer_products__element-navbar-link-logout"
         onClick={ clearStorage }
       />
     </nav>

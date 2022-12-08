@@ -1,19 +1,10 @@
 import axios from 'axios';
 
-// const endpointRequest = axios.create({
-//   baseURL: 'http://localhost:3001',
-//   headers: {
-//     common: {
-//       Authorization: JSON.parse(localStorage.getItem('token')),
-//     },
-//   },
-// });
-
 const endpointRequest = axios.create({
   baseURL: 'http://localhost:3001',
   headers: {
     common: {
-      Authorization: localStorage.getItem('token'),
+      Authorization: JSON.parse(localStorage.getItem('token')),
     },
   },
 });
@@ -35,6 +26,7 @@ export const getData = async (endpoint) => {
 };
 
 export const postData = async (endpoint, body) => {
+  console.log(endpointRequest);
   const { data } = await endpointRequest.post(endpoint, body);
   return data;
 };
