@@ -16,7 +16,7 @@ export default function Products() {
   }, []);
   return (
     <>
-      {/* <NavBar /> */}
+      {/* <NavBar /> */ }
       {products?.map(({ id, name, price, urlImage }) => (
         <ProductsCard
           key={ String(id) }
