@@ -1,33 +1,34 @@
 import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import GlobalContext from '../context/GlobalContext';
 import { readStorage, clearStorage } from '../services/localStorageServices';
 import GenericLink from './GenericLink';
 
 export default function Navbar() {
-  const { navbar, setNavbar } = useContext(GlobalContext);
+  const { user, setUser } = useContext(GlobalContext);
+  const history = useHistory();
 
   useEffect(() => {
-    const user = readStorage('user');
-    if (user.name && user.role) {
-      setNavbar({ ...navbar, name: user.name, role: user.role });
-    }
+    const userStorage = readStorage('user');
+    setUser({ name: userStorage.name, role: userStorage.role });
   }, []);
 
   const logout = () => {
     clearStorage();
-    window.location.reload();
+    setUser({ name: '', role: '' });
+    history.push('/');
   };
 
-  const link = navbar.role === 'seller' ? '/seller/orders' : '/customer/orders';
-  const orderName = navbar.role === 'seller' ? 'Pedidos' : 'Meus Pedidos';
-  const isCostumer = navbar.role === 'customer';
+  const link = user.role === 'seller' ? '/seller/orders' : '/customer/orders';
+  const orderName = user.role === 'seller' ? 'Pedidos' : 'Meus Pedidos';
+  const isCostumer = user.role === 'customer';
   return (
     <div>
       {isCostumer ? (
         <GenericLink
           route="/customer/products"
           name="Produtos"
-          data-testid="customer_products__element-navbar-link-products"
+          testid="customer_products__element-navbar-link-products"
         />
       ) : null}
 
@@ -35,11 +36,11 @@ export default function Navbar() {
         className="link"
         route={ link }
         name={ orderName }
-        data-testid="customer_products__element-navbar-link-orders"
+        testid="customer_products__element-navbar-link-orders"
       />
 
       <h4 data-testid="customer_products__element-navbar-user-full-name">
-        {navbar.name}
+        {user?.name}
       </h4>
 
       <button
