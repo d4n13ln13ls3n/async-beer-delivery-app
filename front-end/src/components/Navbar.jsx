@@ -32,7 +32,7 @@ export default function Navbar() {
         <GenericLink
           route="/customer/products"
           name="Produtos"
-          data-testid="customer_products__element-navbar-link-products"
+          testid="customer_products__element-navbar-link-products"
         />
       )}
       {userRole && defineLink()}
