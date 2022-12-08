@@ -1,10 +1,19 @@
 import axios from 'axios';
 
+// const endpointRequest = axios.create({
+//   baseURL: 'http://localhost:3001',
+//   headers: {
+//     common: {
+//       Authorization: JSON.parse(localStorage.getItem('token')),
+//     },
+//   },
+// });
+
 const endpointRequest = axios.create({
   baseURL: 'http://localhost:3001',
   headers: {
     common: {
-      Authorization: JSON.parse(localStorage.getItem('token')),
+      Authorization: localStorage.getItem('token'),
     },
   },
 });
