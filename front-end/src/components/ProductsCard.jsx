@@ -1,5 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import ProductButtons from './ProductButtons';
 
 export default function Products({ price, urlImage, productName, id }) {
   return (
@@ -19,27 +20,7 @@ export default function Products({ price, urlImage, productName, id }) {
       >
         { productName }
       </p>
-      <div>
-        <button
-          data-testid={
-            `customer_products__button-card-rm-item-${id}`
-          }
-          type="button"
-        >
-          -
-        </button>
-        <input
-          data-testid={ `customer_products__input-card-quantity-${id}` }
-        />
-        <button
-          data-testid={
-            `customer_products__button-card-add-item-${id}`
-          }
-          type="button"
-        >
-          +
-        </button>
-      </div>
+      <ProductButtons />
     </container>
   );
 }
