@@ -1,33 +1,69 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import GlobalContext from '../context/GlobalContext';
-import GenericTextDiv from './GenericTextDiv';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { getData } from '../services/endPointRequest';
 
-export default function OrderCard(orderId, date, price, address) {
-  const { navbar } = useContext(GlobalContext);
+export default function OrderCard() {
+  const [data, setData] = useState([]);
+  const [userType, setUserType] = useState('');
   const genericDTId = '_orders__element-'; // Generic Data Test ID
-  const userType = navbar.role;
+  const location = useLocation();
+  console.log(userType);
+  console.log(data);
+
+  useEffect(() => {
+    const path = location.pathname.split('/')[1];
+    const fetchOrders = async (route) => {
+      console.log(path);
+      setUserType(path);
+      const response = await getData(`sales/${route}s`);
+      setData(response);
+    };
+    fetchOrders(path);
+  }, [location.pathname]);
+
   return (
-    <Link to={ orderId }>
-      <div>
-        <GenericTextDiv
-          text={ `Pedido ${orderId}` }
-          datatestid={ `${userType}${genericDTId}order-${orderId}` }
-        />
-        <GenericTextDiv
-          text={ OrderStatus }
-          datatestid={ `${userType}${genericDTId}delivery-status-${orderId}` }
-        />
-        <GenericTextDiv
-          text={ date }
-          datatestid={ `${userType}${genericDTId}order-date-${orderId}` }
-        />
-        <GenericTextDiv
-          text={ `R$ ${price}` }
-          datatestid={ `${userType}${genericDTId}card-price-${orderId}` }
-        />
-        { userType === 'seller' ? (<p>{{ address }}</p>) : null}
-      </div>
-    </Link>
+    <div>
+      { data.map((order) => {
+        const {
+          id,
+          saleDate,
+          totalPrice,
+          status,
+          deliveryAddress,
+          deliveryNumber,
+        } = order;
+        return (
+          <div key={ id }>
+            <Link to={ `orders/${id}` }>
+              <div>
+                <p data-testid={ `${userType}${genericDTId}order-${id}` }>
+                  {`Pedido ${id}`}
+                </p>
+              </div>
+              <div>
+                <p
+                  data-testid={ `${userType}${genericDTId}delivery-status-${id}` }
+                >
+                  {status}
+                </p>
+              </div>
+              <div>
+                <p data-testid={ `${userType}${genericDTId}order-date-${id}` }>
+                  {saleDate}
+                </p>
+              </div>
+              <div>
+                <p data-testid={ `${userType}${genericDTId}card-price-${id}` }>
+                  {`R$ ${totalPrice}`}
+                </p>
+              </div>
+              {userType === 'seller' ? (
+                <p>{`${deliveryAddress}, N ${deliveryNumber}`}</p>
+              ) : null}
+            </Link>
+          </div>
+        );
+      })}
+    </div>
   );
 }
