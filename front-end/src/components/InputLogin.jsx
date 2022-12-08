@@ -29,7 +29,7 @@ function InputLogin() {
   const defineRoute = (role) => {
     if (role === 'seller') return '/seller/orders';
     if (role === 'customer') return '/customer/products';
-    if (role === 'admin') return '/admin/manage';
+    if (role === 'administrator') return '/admin/manage';
     return null;
   };
 
@@ -43,6 +43,7 @@ function InputLogin() {
       setUser(name, role);
       setLogin(true);
       const route = defineRoute(role);
+      console.log(route);
       history.push(route);
     } catch ({ response }) {
       const { data: { message } } = response;
