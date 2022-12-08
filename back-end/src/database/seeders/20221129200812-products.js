@@ -70,7 +70,7 @@ module.exports = {
           id: 11,
           name: "Stella Artois 275ml",
           price: 3.49,
-          url_image: "http://localhost:3001/images/stella_artois_275ml.jpg'",
+          url_image: "http://localhost:3001/images/stella_artois_275ml.jpg",
         },
       ],
       {
