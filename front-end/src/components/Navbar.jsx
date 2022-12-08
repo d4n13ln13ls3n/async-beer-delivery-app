@@ -1,56 +1,52 @@
-import React, { useContext, useEffect } from 'react';
-import GlobalContext from '../context/GlobalContext';
+import React, { useEffect, useState } from 'react';
 import { readStorage, clearStorage } from '../services/localStorageServices';
 import GenericLink from './GenericLink';
 
 export default function Navbar() {
-  const { navbar, setNavbar } = useContext(GlobalContext);
+  const [userName, setUserName] = useState('');
+  const [userRole, setUserRole] = useState('');
+
+  const contentForEachRole = {
+    customer: { text: 'Meus pedidos', url: '/customer/orders' },
+    seller: { text: 'Pedidos', url: '/seller/orders' },
+    administrator: { text: 'Gerenciar usuários', url: '/admin/manager' },
+  };
 
   useEffect(() => {
     const user = readStorage('user');
-    if (user.name && user.role) {
-      setNavbar({ ...navbar, name: user.name, role: user.role });
-    }
+    setUserName(user.name);
+    setUserRole(user.role);
   }, []);
 
-  const logout = () => {
-    clearStorage();
-    window.location.reload();
-  };
+  const defineLink = () => (
+    <GenericLink
+      route={ `${contentForEachRole[userRole].url}` }
+      name={ `${contentForEachRole[userRole].text}` }
+      data-testid="customer_products__element-navbar-link-orders"
+    />
+  );
 
-  const link = navbar.role === 'seller' ? '/seller/orders' : '/customer/orders';
-  const orderName = navbar.role === 'seller' ? 'Pedidos' : 'Meus Pedidos';
-  const isCostumer = navbar.role === 'customer';
   return (
-    <div>
-      {isCostumer ? (
+    <nav>
+      {userRole === 'customer' && (
         <GenericLink
           route="/customer/products"
           name="Produtos"
           data-testid="customer_products__element-navbar-link-products"
         />
-      ) : null}
-
+      )}
+      {userRole && defineLink()}
       <GenericLink
-        className="link"
-        route={ link }
-        name={ orderName }
-        data-testid="customer_products__element-navbar-link-orders"
+        route="/user"
+        name={ userName }
+        data-testid="customer_products__element-navbar-user-full-name"
       />
-
-      <h4 data-testid="customer_products__element-navbar-user-full-name">
-        {navbar.name}
-      </h4>
-
-      <button
-        type="button"
-        onClick={ () => {
-          logout();
-        } }
+      <GenericLink
+        route="/"
+        name="Sair"
         data-testid="customer_products__element-navbar-link-logout"
-      >
-        Sair
-      </button>
-    </div>
+        onClick={ clearStorage }
+      />
+    </nav>
   );
 }

@@ -117,16 +117,9 @@ function InputRegisterByAdmin() {
           CADASTRAR
         </button>
         {errorMessage && (
-          <span data-testid="admin_manage__element-invalid-register">
+          <h5 data-testid="admin_manage__element-invalid-register">
             {errorMessage}
-          </span>
-        )}
-        {errorMessage === '' ? (
-          ''
-        ) : (
-          <span data-testid="common_register__element-invalid_register">
-            {errorMessage}
-          </span>
+          </h5>
         )}
       </form>
     </div>
