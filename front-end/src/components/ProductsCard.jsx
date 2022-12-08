@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-export default function Products({ price, urlImage, name, id }) {
+export default function Products({ price, urlImage, productName, id }) {
   return (
     <container>
       <p
@@ -10,15 +10,14 @@ export default function Products({ price, urlImage, name, id }) {
         { price.replace('.', ',') }
       </p>
       <img
-        className="product-card-img"
         src={ urlImage }
-        alt={ name }
+        alt={ productName }
         data-testid={ `customer_products__img-card-bg-image-${id}` }
       />
       <p
         data-testid={ `customer_products__element-card-title-${id}` }
       >
-        { name }
+        { productName }
       </p>
       <div>
         <button
@@ -47,7 +46,7 @@ export default function Products({ price, urlImage, name, id }) {
 
 Products.propTypes = {
   id: propTypes.number.isRequired,
-  name: propTypes.string.isRequired,
+  productName: propTypes.string.isRequired,
   price: propTypes.number.isRequired,
   urlImage: propTypes.string.isRequired,
 };
