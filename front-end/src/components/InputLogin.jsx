@@ -29,7 +29,7 @@ function InputLogin() {
   const defineRoute = (role) => {
     if (role === 'seller') return '/seller/orders';
     if (role === 'customer') return '/customer/products';
-    if (role === 'admin') return '/admin/manage';
+    if (role === 'administrator') return '/admin/manage';
     return null;
   };
 
