@@ -14,8 +14,10 @@ export const getAllProducts = async (endpoint) => {
   return data;
 };
 
-export const getData = async (endpoint) => {
-  const { data } = await endpointRequest.get(endpoint);
+export const getData = async (endpoint, token) => {
+  const { data } = await endpointRequest.get(endpoint, {
+    headers: { Authorization: token },
+  });
   return data;
 };
 
