@@ -45,5 +45,5 @@ export default function ProductButtons({ id }) {
 }
 
 ProductButtons.propTypes = {
-  id: propTypes.number.isRequired,
+  id: propTypes.string.isRequired,
 };
