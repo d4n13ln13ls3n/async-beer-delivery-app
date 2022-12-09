@@ -15,7 +15,6 @@ export const getAllProducts = async (endpoint) => {
 };
 
 export const getData = async (endpoint) => {
-  console.log();
   const { data } = await endpointRequest.get(endpoint);
   return data;
 };
