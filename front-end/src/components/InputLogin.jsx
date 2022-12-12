@@ -29,13 +29,12 @@ function InputLogin() {
   const defineRoute = (role) => {
     if (role === 'seller') return '/seller/orders';
     if (role === 'customer') return '/customer/products';
-    if (role === 'admin') return '/admin/manage';
+    if (role === 'administrator') return '/admin/manage';
     return null;
   };
 
   const handleAcess = async () => {
     try {
-      console.log(loginFields);
       const responseUser = await signLogin('login', loginFields);
       const { name, role } = responseUser;
       SaveStorage('user', responseUser);

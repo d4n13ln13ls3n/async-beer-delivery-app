@@ -1,25 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { getData } from '../services/endPointRequest';
+import { readStorage } from '../services/localStorageServices';
 
 export default function OrderCard() {
   const [data, setData] = useState([]);
   const [userType, setUserType] = useState('');
+  const [userToken, setUserToken] = useState('');
   const genericDTId = '_orders__element-'; // Generic Data Test ID
   const location = useLocation();
   console.log(userType);
   console.log(data);
 
   useEffect(() => {
+    const token = readStorage('token');
+    setUserToken(token);
+  }, []);
+
+  useEffect(() => {
     const path = location.pathname.split('/')[1];
     const fetchOrders = async (route) => {
       console.log(path);
       setUserType(path);
-      const response = await getData(`sales/${route}s`);
+      const response = await getData(`sales/${route}s`, userToken);
       setData(response);
     };
     fetchOrders(path);
-  }, [location.pathname]);
+  }, [location.pathname, userToken]);
 
   return (
     <div>
