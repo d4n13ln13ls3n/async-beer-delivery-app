@@ -23,7 +23,7 @@ export default function AdminPage() {
     <div>
       <Navbar />
       <InputRegisterByAdmin getUsers={ getUsers } />
-      <UsersTable usersList={ usersList } />
+      <UsersTable usersList={ usersList } getUsers={ getUsers } />
     </div>
   );
 }
