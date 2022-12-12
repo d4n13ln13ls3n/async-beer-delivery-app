@@ -28,4 +28,8 @@ export const postData = async (endpoint, body, token) => {
   return data;
 };
 
+export const deleteData = async (endpoint, token) => {
+  await endpointRequest.delete(endpoint, { headers: { Authorization: token } });
+};
+
 export default endpointRequest;

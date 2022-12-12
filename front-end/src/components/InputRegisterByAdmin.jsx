@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { postData } from '../services/endPointRequest';
 import { readStorage } from '../services/localStorageServices';
 
-function InputRegisterByAdmin() {
+function InputRegisterByAdmin({ getUsers }) {
   const [userFields, setUserFields] = useState({
     name: '',
     email: '',
@@ -50,6 +51,13 @@ function InputRegisterByAdmin() {
 
     try {
       await postData('/users', userFields, userToken);
+      setUserFields({
+        name: '',
+        email: '',
+        password: '',
+        roleToRegister: '',
+      });
+      getUsers();
     } catch ({ response }) {
       const {
         data: { message },
@@ -107,6 +115,7 @@ function InputRegisterByAdmin() {
             id="role"
             name="roleToRegister"
             defaultValue=""
+            value={ userFields.roleToRegister }
             onChange={ handleInput }
             data-testid="admin_manage__select-role"
           >
@@ -133,3 +142,7 @@ function InputRegisterByAdmin() {
   );
 }
 export default InputRegisterByAdmin;
+
+InputRegisterByAdmin.propTypes = {
+  getUsers: PropTypes.func.isRequired,
+};
