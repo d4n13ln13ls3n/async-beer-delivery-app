@@ -14,13 +14,15 @@ export default function Products({ price, urlImage, productName, id }) {
         src={ urlImage }
         alt={ productName }
         data-testid={ `customer_products__img-card-bg-image-${id}` }
+        width="150px"
       />
       <p
         data-testid={ `customer_products__element-card-title-${id}` }
+        value={ productName }
       >
         { productName }
       </p>
-      <ProductButtons id={ id } />
+      <ProductButtons id={ id } name={ productName } price={ price } />
     </container>
   );
 }

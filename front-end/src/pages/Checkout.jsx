@@ -61,97 +61,94 @@ export default function Checkout() {
   };
   return (
     <>
-      <thead>
-        <h3>Finalizar Pedido</h3>
-        <tr>
-          <th>Item</th>
-          <th>Descrição</th>
-          <th>Quantidade</th>
-          <th>Valor Unitário</th>
-          <th>Sub-total</th>
-          <th>Remover Item</th>
-        </tr>
-      </thead>
-      <tbody>
-        {productsArray.map((pro) => (
-          <tr key={ pro.id }>
-            <td
-              data-
-              testid={ `${customerElement}-item-number-${pro.id}` }
-            >
-              {pro.id}
-            </td>
-            <td
-              data-testid={ `${customerElement}-name-${pro.id}` }
-            >
-              {pro.name}
-            </td>
-            <td
-              data-testid={ `${customerElement}-quantity-${pro.id}` }
-            >
-              {pro.quantity}
-            </td>
-            <td
-              data-
-              testid={ `${customerElement}-unit-price-${pro.id}` }
-            >
-              {Number(pro.price).toFixed(2)}
-            </td>
-            <td
-              data-testid={ `${customerElement}-sub-total-${pro.id}` }
-            >
-              {(Number(pro.price) * Number(pro.quantity)).toFixed(2)}
-            </td>
-            <td
-              data-testid={ `${customerElement}-remove-${pro.id}` }
-            >
-              <button
-                type="button"
-                onClick={ () => handleDelete(pro.id) }
-              >
-                Remover
-              </button>
-            </td>
+      <h3>Finalizar Pedido</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Sub-total</th>
+            <th>Remover Item</th>
           </tr>
-        ))}
-        <h3
-          data-testid={ `${customerCheckout}element-order-total-price` }
-        >
-          {totalPrice}
-        </h3>
-      </tbody>
+        </thead>
+        <tbody>
+          {productsArray.map((pro) => (
+            <tr key={ pro.id }>
+              <td
+                data-
+                testid={ `${customerElement}-item-number-${pro.id}` }
+              >
+                {pro.id}
+              </td>
+              <td
+                data-testid={ `${customerElement}-name-${pro.id}` }
+              >
+                {pro.name}
+              </td>
+              <td
+                data-testid={ `${customerElement}-quantity-${pro.id}` }
+              >
+                {pro.quantity}
+              </td>
+              <td
+                data-
+                testid={ `${customerElement}-unit-price-${pro.id}` }
+              >
+                {Number(pro.price).toFixed(2)}
+              </td>
+              <td
+                data-testid={ `${customerElement}-sub-total-${pro.id}` }
+              >
+                {(Number(pro.price) * Number(pro.quantity)).toFixed(2)}
+              </td>
+              <td
+                data-testid={ `${customerElement}-remove-${pro.id}` }
+              >
+                <button
+                  type="button"
+                  onClick={ () => handleDelete(pro.id) }
+                >
+                  Remover
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <h3
+        data-testid={ `${customerCheckout}element-order-total-price` }
+      >
+        {`Total R$: ${totalPrice}`}
+      </h3>
       <h3>Detalhes e Endereço para Entrega</h3>
-      <tbody>
-        <tr>
-          <th>P.Vendedora Responsável</th>
-          <th> Endereço</th>
-          <th>Número</th>
-        </tr>
-        <tr>
-          <select data-testid="customer_checkout__select-seller">
-            <option>
-              { sellerName }
-            </option>
-          </select>
-          <td>
-            <input
-              type="text"
-              data-testid={ `${customerCheckout}customer_checkout__input-address` }
-              onChange={ ({ target }) => { setAddress(target.value); } }
-              value={ address }
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              data-testid={ `${customerCheckout}input-address-number` }
-              onChange={ ({ target }) => { setAddressNumber(target.value); } }
-              value={ addressNumber }
-
-            />
-          </td>
-        </tr>
-      </tbody>
+      <table>
+        <thead>
+          <tr>
+            <th>P.Vendedora Responsável</th>
+            <th> Endereço</th>
+            <th>Número</th>
+          </tr>
+        </thead>
+      </table>
+      <select data-testid="customer_checkout__select-seller">
+        <option>
+          { sellerName }
+        </option>
+      </select>
+      <input
+        type="text"
+        data-testid={ `${customerCheckout}customer_checkout__input-address` }
+        onChange={ ({ target }) => { setAddress(target.value); } }
+        value={ address }
+      />
+      <input
+        type="text"
+        data-testid={ `${customerCheckout}input-address-number` }
+        onChange={ ({ target }) => { setAddressNumber(target.value); } }
+        value={ addressNumber }
+      />
       <button
         type="button"
         data-testid={ `${customerCheckout}button-submit-order` }

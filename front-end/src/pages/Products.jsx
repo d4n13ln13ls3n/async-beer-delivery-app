@@ -5,7 +5,7 @@ import { getAllProducts } from '../services/endPointRequest';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
-
+  console.log(products);
   async function fetchProducts() {
     const data = await getAllProducts('products');
     setProducts(data);
