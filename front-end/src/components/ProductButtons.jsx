@@ -1,49 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import propTypes from 'prop-types';
 
-export default function ProductButtons({ id }) {
-  // const [quantity, setQuantity] = useState(0);
+export default function ProductButtons({ id, name, price }) {
+  const [quantity, setQuantity] = useState(0);
+  const [cart, setCart] = useState([]);
 
-  // const handleDecrease = ((prev) => {
-  //   setQuantity(prev - 1 < 0 ? 0 : prev - 1);
-  //   removeItemCart(product.id);
-  // });
+  const handleDecrease = () => {
+    setQuantity(Number(quantity - 1 < 0 ? 0 : quantity - 1));
+  };
 
-  // const handleInputQty = (value) => {
-  //   console.log(value);
-  //   if (Number(value) <= 0) {
-  //     setQuantity(0);
-  //   }
-  // };
+  const handleIncrement = () => {
+    setQuantity(Number(quantity + 1));
+    setCart([...cart]);
+  };
+  console.log(cart);
 
   return (
     <div>
       <button
-        // onClick={ () => handleDecrease() }
-        // disabled={ quantity <= 0 }
         data-testid={
           `customer_products__button-card-rm-item-${id}`
         }
         type="button"
+        onClick={ handleDecrease }
+        value={ quantity }
       >
         -
       </button>
       <input
+        type="number"
+        value={ quantity }
         data-testid={ `customer_products__input-card-quantity-${id}` }
-        // onChange={ ({ target }) => handleInputQty(target.value) }
+        onChange={ ({ target }) => setQuantity(target.value) }
       />
       <button
         data-testid={
           `customer_products__button-card-add-item-${id}`
         }
         type="button"
+        onClick={ handleIncrement }
       >
         +
       </button>
+      {/* <h4>{ totalPrice }</h4> */}
     </div>
   );
 }
 
 ProductButtons.propTypes = {
-  id: propTypes.number.isRequired,
+  id: propTypes.string.isRequired,
+  name: propTypes.string.isRequired,
+  price: propTypes.string.isRequired,
 };

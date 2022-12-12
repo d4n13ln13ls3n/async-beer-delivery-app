@@ -14,20 +14,22 @@ export default function Products({ price, urlImage, productName, id }) {
         src={ urlImage }
         alt={ productName }
         data-testid={ `customer_products__img-card-bg-image-${id}` }
+        width="150px"
       />
       <p
         data-testid={ `customer_products__element-card-title-${id}` }
+        value={ productName }
       >
         { productName }
       </p>
-      <ProductButtons />
+      <ProductButtons id={ id } name={ productName } price={ price } />
     </container>
   );
 }
 
 Products.propTypes = {
-  id: propTypes.number.isRequired,
+  id: propTypes.string.isRequired,
   productName: propTypes.string.isRequired,
-  price: propTypes.number.isRequired,
+  price: propTypes.string.isRequired,
   urlImage: propTypes.string.isRequired,
 };
