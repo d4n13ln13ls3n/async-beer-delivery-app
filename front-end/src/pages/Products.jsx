@@ -24,6 +24,7 @@ export default function Products() {
           price={ price }
           productName={ name }
           urlImage={ urlImage }
+          product={ { id, name, price } }
         />
       ))}
     </>

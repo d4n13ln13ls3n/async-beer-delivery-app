@@ -2,9 +2,9 @@ import React from 'react';
 import propTypes from 'prop-types';
 import ProductButtons from './ProductButtons';
 
-export default function Products({ price, urlImage, productName, id }) {
+export default function Products({ price, urlImage, productName, id, product }) {
   return (
-    <container>
+    <div>
       <p
         data-testid={ `customer_products__element-card-price-${id}` }
       >
@@ -22,8 +22,8 @@ export default function Products({ price, urlImage, productName, id }) {
       >
         { productName }
       </p>
-      <ProductButtons id={ id } name={ productName } price={ price } />
-    </container>
+      <ProductButtons product={ product } />
+    </div>
   );
 }
 
@@ -32,4 +32,9 @@ Products.propTypes = {
   productName: propTypes.string.isRequired,
   price: propTypes.string.isRequired,
   urlImage: propTypes.string.isRequired,
+  product: propTypes.shape({
+    id: propTypes.number.isRequired,
+    name: propTypes.string.isRequired,
+    price: propTypes.string.isRequired,
+  }).isRequired,
 };

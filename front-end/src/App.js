@@ -14,6 +14,7 @@ import SellerOrderId from './pages/SellerOrderId';
 import AdminPage from './pages/AdminPage';
 import LoginProvider from './context/LoginProvider';
 import RegisterProvider from './context/RegisterProvider';
+import CartProvider from './context/CartProvider';
 
 function App() {
   return (
@@ -23,8 +24,10 @@ function App() {
           <Redirect exact from="/" to="/login" />
           <Route path="/login" component={ Login } />
           <Route exact path="/register" component={ Register } />
-          <Route exact path="/customer/products" component={ Products } />
-          <Route exact path="/customer/checkout" component={ Checkout } />
+          <CartProvider>
+            <Route exact path="/customer/products" component={ Products } />
+            <Route exact path="/customer/checkout" component={ Checkout } />
+          </CartProvider>
           <Route exact path="/customer/orders/:id" component={ Order } />
           <Route exact path="/customer/orders" component={ Orders } />
           <Route exact path="/seller/orders" component={ Seller } />
