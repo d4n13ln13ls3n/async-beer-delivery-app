@@ -35,7 +35,6 @@ function InputLogin() {
 
   const handleAcess = async () => {
     try {
-      console.log(loginFields);
       const responseUser = await signLogin('login', loginFields);
       const { name, role } = responseUser;
       SaveStorage('user', responseUser);
@@ -43,7 +42,6 @@ function InputLogin() {
       setUser(name, role);
       setLogin(true);
       const route = defineRoute(role);
-      console.log(route);
       history.push(route);
     } catch ({ response }) {
       const { data: { message } } = response;

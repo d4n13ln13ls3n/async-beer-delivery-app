@@ -2,11 +2,6 @@ import axios from 'axios';
 
 const endpointRequest = axios.create({
   baseURL: 'http://localhost:3001',
-  headers: {
-    common: {
-      Authorization: JSON.parse(localStorage.getItem('token')),
-    },
-  },
 });
 
 export const signLogin = async (endpoint, body) => {
@@ -19,15 +14,17 @@ export const getAllProducts = async (endpoint) => {
   return data;
 };
 
-export const getData = async (endpoint) => {
-  console.log();
-  const { data } = await endpointRequest.get(endpoint);
+export const getData = async (endpoint, token) => {
+  const { data } = await endpointRequest.get(endpoint, {
+    headers: { Authorization: token },
+  });
   return data;
 };
 
-export const postData = async (endpoint, body) => {
-  console.log(endpointRequest);
-  const { data } = await endpointRequest.post(endpoint, body);
+export const postData = async (endpoint, body, token) => {
+  const { data } = await endpointRequest.post(endpoint, body, {
+    headers: { Authorization: token },
+  });
   return data;
 };
 

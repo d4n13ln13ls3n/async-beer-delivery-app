@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { postData } from '../services/endPointRequest';
+import { readStorage } from '../services/localStorageServices';
 
 function InputRegisterByAdmin() {
   const [userFields, setUserFields] = useState({
@@ -10,6 +11,12 @@ function InputRegisterByAdmin() {
   });
   const [isDisabled, setIsDisabled] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
+  const [userToken, setUserToken] = useState('');
+
+  useEffect(() => {
+    const token = readStorage('token');
+    setUserToken(token);
+  }, []);
 
   useEffect(() => {
     const validateFields = () => {
@@ -42,7 +49,7 @@ function InputRegisterByAdmin() {
     e.preventDefault();
 
     try {
-      await postData('/users', userFields);
+      await postData('/users', userFields, userToken);
     } catch ({ response }) {
       const {
         data: { message },

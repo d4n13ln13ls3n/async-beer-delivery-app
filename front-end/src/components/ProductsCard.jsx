@@ -20,14 +20,14 @@ export default function Products({ price, urlImage, productName, id }) {
       >
         { productName }
       </p>
-      <ProductButtons />
+      <ProductButtons id={ id } />
     </container>
   );
 }
 
 Products.propTypes = {
-  id: propTypes.number.isRequired,
+  id: propTypes.string.isRequired,
   productName: propTypes.string.isRequired,
-  price: propTypes.number.isRequired,
+  price: propTypes.string.isRequired,
   urlImage: propTypes.string.isRequired,
 };
