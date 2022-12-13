@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { signLogin } from '../services/endPointRequest';
 import loginContext from '../context/LoginContext';
-import { SaveStorage } from '../services/localStorageServices';
+import { readStorage, SaveStorage } from '../services/localStorageServices';
 import GlobalContext from '../context/GlobalContext';
 
 function InputLogin() {
@@ -52,6 +52,10 @@ function InputLogin() {
   const handleCreate = () => {
     history.push('/register');
   };
+
+  if (readStorage('user')) {
+    history.push('/customer/products');
+  }
 
   return (
     <form className="login-container">

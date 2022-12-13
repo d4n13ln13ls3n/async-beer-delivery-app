@@ -43,25 +43,25 @@ export default function OrderCard() {
           <div key={ id }>
             <Link to={ `orders/${id}` }>
               <div>
-                <p data-testid={ `${userType}${genericDTId}order-${id}` }>
+                <p data-testid={ `${userType}${genericDTId}order-id-${id}` }>
                   {`Pedido ${id}`}
                 </p>
               </div>
               <div>
                 <p
-                  data-testid={ `${userType}${genericDTId}delivery-status-${id}` }
+                  data-testid={ `${userType}${genericDTId}delivery-status-id-${id}` }
                 >
                   {status}
                 </p>
               </div>
               <div>
-                <p data-testid={ `${userType}${genericDTId}order-date-${id}` }>
+                <p data-testid={ `${userType}${genericDTId}order-date-id-${id}` }>
                   {saleDate}
                 </p>
               </div>
               <div>
-                <p data-testid={ `${userType}${genericDTId}card-price-${id}` }>
-                  {`R$ ${totalPrice}`}
+                <p data-testid={ `${userType}${genericDTId}card-price-id-${id}` }>
+                  { totalPrice.replace('.', ',')}
                 </p>
               </div>
               {userType === 'seller' ? (
