@@ -70,7 +70,7 @@ class UserService {
   static async getAllSellers() {
     const sellers = await User.findAll({
       where: { role: 'seller' },
-      attributes: ['name'],
+      attributes: ['id', 'name'],
     });
     return sellers;
   }
