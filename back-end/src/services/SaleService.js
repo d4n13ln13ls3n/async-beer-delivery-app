@@ -1,5 +1,4 @@
 const { User, Product, Sale, SaleProduct, sequelize } = require('../database/models');
-// const UserService = require('./UserService');
 const ProductService = require('./ProductService');
 const HttpErrorHandler = require('../middlewares/errorHandler/HttpErrorHandler');
 
@@ -36,7 +35,8 @@ class SaleService {
       status,
       products: products.map((product) => ({
         name: product.name,
-        quantity: product.SaleProduct.quantity })),
+        quantity: product.SaleProduct.quantity,
+        price: product.price })),
     };
 
     if (role === 'customer') {
@@ -51,8 +51,6 @@ class SaleService {
 
   static async register({ userId, sellerId, totPrice, delAddress, delNumber, products }) {
     const newSale = await sequelize.transaction(async (t) => {
-      // const { id: sellerId } = await UserService.getSellerByName(sellerName);
-
       const { id } = await Sale.create({
           userId,
           sellerId,
@@ -93,7 +91,7 @@ class SaleService {
         {
           model: Product,
           as: 'products',
-          attributes: ['name'],
+          attributes: ['name', 'price'],
           through: { attributes: ['quantity'] },
         },
       ],
@@ -112,7 +110,7 @@ class SaleService {
         {
           model: Product,
           as: 'products',
-          attributes: ['name'],
+          attributes: ['name', 'price'],
           through: { attributes: ['quantity'] },
         },
       ],
