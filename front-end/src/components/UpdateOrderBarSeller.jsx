@@ -10,7 +10,7 @@ export default function UpdateOrderBarSeller({ order, getOrder }) {
     await getOrder();
   };
 
-  const dataTestId = 'customer_order_details__element-order-details-label-';
+  const dataTestId = 'seller_order_details__element-order-details-label-';
 
   return (
     <div>
@@ -24,7 +24,7 @@ export default function UpdateOrderBarSeller({ order, getOrder }) {
         type="button"
         disabled={ order.status !== 'Pendente' }
         onClick={ updateStatus }
-        data-testid="customer_order_details__button-delivery-check"
+        data-testid="seller_order_details__button-preparing-check"
       >
         Preparar Pedido
       </button>
@@ -32,7 +32,7 @@ export default function UpdateOrderBarSeller({ order, getOrder }) {
         type="button"
         disabled={ order.status !== 'Preparando' }
         onClick={ updateStatus }
-        data-testid="customer_order_details__button-delivery-check"
+        data-testid="seller_order_details__button-dispatch-check"
       >
         Saiu Para Entrega
       </button>

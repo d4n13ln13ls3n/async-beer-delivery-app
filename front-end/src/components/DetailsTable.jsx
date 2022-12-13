@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { readStorage } from '../services/localStorageServices';
 
 export default function DetailsTable({ products }) {
-  const dataTestId = 'customer_order_details__element-order-';
+  const [role, setRole] = useState('');
+
+  useEffect(() => {
+    const user = readStorage('user');
+    setRole(user.role);
+  }, []);
+
+  const dataTestId = `${role}_order_details__element-order-`;
 
   return (
     <table>

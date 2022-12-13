@@ -25,7 +25,7 @@ export default function SellerOrderId() {
       <Navbar />
       <UpdateOrderBarSeller order={ order } getOrder={ getOrder } />
       <DetailsTable products={ order.products || [] } />
-      <p data-testid="customer_order_details__element-order-total-price">
+      <p data-testid="seller_order_details__element-order-total-price">
         {`R$ ${Number(order.totalPrice).toFixed(2).replace('.', ',')}`}
       </p>
     </>
