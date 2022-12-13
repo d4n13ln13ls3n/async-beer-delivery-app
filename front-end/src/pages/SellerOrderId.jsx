@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Navbar from '../components/Navbar';
+import UpdateOrderBar from '../components/UpdateOrderBar';
 
 export default function SellerOrderId() {
+  const [currentStatus, setCurrentStatus] = useState('');
+  const [CurrentOrderData, setCurrentOrderData] = useState({
+    orderId,
+    saleDate,
+  });
+
   return (
-    <div>SellerOrderId</div>
+    <div>
+      <Navbar />
+      <UpdateOrderBar
+        orderId={ CurrentOrderData.orderId }
+        date={ CurrentOrderData.date }
+        currentStatus={ currentStatus }
+        setCurrentStatus={ setCurrentStatus }
+      />
+      <SellerOrderId
+        setCurrentStatus={ setCurrentStatus }
+        setCurrentOrderData={ setCurrentOrderData }
+        currentPath="seller"
+      />
+    </div>
   );
 }
