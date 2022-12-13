@@ -10,20 +10,20 @@ export default function Order() {
   const [order, setOrder] = useState({});
   const { id } = useParams();
 
-  useEffect(() => {
-    const getOrder = async () => {
-      const token = readStorage('token');
-      const sale = await getData(`/sales/${id}/customers`, token);
-      setOrder(sale);
-    };
+  const getOrder = async () => {
+    const token = readStorage('token');
+    const sale = await getData(`/sales/${id}/customers`, token);
+    setOrder(sale);
+  };
 
+  useEffect(() => {
     getOrder();
-  }, [id]);
+  }, []);
 
   return (
     <>
       <Navbar />
-      <UpdateOrderBarCustomer order={ order } />
+      <UpdateOrderBarCustomer order={ order } getOrder={ getOrder } />
       <DetailsTable products={ order.products || [] } />
       <p data-testid="customer_order_details__element-order-total-price">
         {`R$ ${Number(order.totalPrice).toFixed(2).replace('.', ',')}`}

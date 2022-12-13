@@ -33,7 +33,7 @@ export const deleteData = async (endpoint, token) => {
 };
 
 export const updateData = async (endpoint, token) => {
-  await endpointRequest.patch(endpoint, { headers: { Authorization: token } });
+  await endpointRequest.patch(endpoint, {}, { headers: { Authorization: token } });
 };
 
 export default endpointRequest;
