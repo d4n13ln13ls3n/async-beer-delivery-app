@@ -68,8 +68,6 @@ export default function Checkout() {
       })),
     };
 
-    console.log(order);
-
     const token = readStorage('token');
 
     try {
@@ -161,7 +159,7 @@ export default function Checkout() {
         value={ input.delAddress }
       />
       <input
-        type="text"
+        type="number"
         name="delNumber"
         data-testid={ `${customerCheckout}input-address-number` }
         onChange={ handleInput }
