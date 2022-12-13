@@ -1,5 +1,5 @@
 const { User, Product, Sale, SaleProduct, sequelize } = require('../database/models');
-const UserService = require('./UserService');
+// const UserService = require('./UserService');
 const ProductService = require('./ProductService');
 const HttpErrorHandler = require('../middlewares/errorHandler/HttpErrorHandler');
 
@@ -49,9 +49,9 @@ class SaleService {
     }
   }
 
-  static async register({ userId, sellerName, totPrice, delAddress, delNumber, products }) {
+  static async register({ userId, sellerId, totPrice, delAddress, delNumber, products }) {
     const newSale = await sequelize.transaction(async (t) => {
-      const { id: sellerId } = await UserService.getSellerByName(sellerName);
+      // const { id: sellerId } = await UserService.getSellerByName(sellerName);
 
       const { id } = await Sale.create({
           userId,

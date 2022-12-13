@@ -10,7 +10,7 @@ export default function Checkout() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [sellersName, setSellersName] = useState([]);
   const [input, setInput] = useState({
-    sellerName: '',
+    sellerId: '',
     delAddress: '',
     delNumber: '',
   });
@@ -55,10 +55,10 @@ export default function Checkout() {
   };
 
   const handleAccess = async () => {
-    const { sellerName, delAddress, delNumber } = input;
+    const { sellerId, delAddress, delNumber } = input;
 
     const order = {
-      sellerName,
+      sellerId: Number(sellerId),
       totPrice: Number(totalPrice.toFixed(2)),
       delAddress,
       delNumber,
@@ -67,6 +67,8 @@ export default function Checkout() {
         quantity: cartItem.quantity,
       })),
     };
+
+    console.log(order);
 
     const token = readStorage('token');
 
@@ -139,14 +141,14 @@ export default function Checkout() {
         </thead>
       </table>
       <select
-        name="sellerName"
+        name="sellerId"
         onChange={ handleInput }
         defaultValue=""
         data-testid="customer_checkout__select-seller"
       >
         <option value=""> </option>
-        {sellersName.map(({ name }, index) => (
-          <option key={ index } value={ name }>
+        {sellersName.map(({ id, name }, index) => (
+          <option key={ index } value={ id }>
             {name}
           </option>
         ))}
