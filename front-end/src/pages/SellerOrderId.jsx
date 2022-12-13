@@ -18,6 +18,11 @@ export default function SellerOrderId() {
         currentStatus={ currentStatus }
         setCurrentStatus={ setCurrentStatus }
       />
+      <SellerOrderId
+        setCurrentStatus={ setCurrentStatus }
+        setCurrentOrderData={ setCurrentOrderData }
+        currentPath="seller"
+      />
     </div>
   );
 }
