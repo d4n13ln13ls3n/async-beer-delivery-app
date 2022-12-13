@@ -36,6 +36,24 @@ export default function ProductButtons({ product }) {
     }
   }
 
+  function handleChange({ target }, item) {
+    const isAlreadyAddedOnCart = cart.some(
+      (cartProduct) => cartProduct.id === item.id,
+    );
+
+    if (isAlreadyAddedOnCart) {
+      setCart(cart.map((cartProduct) => {
+        if (cartProduct.id === item.id) {
+          return { ...cartProduct, quantity: Number(target.value) };
+        }
+
+        return cartProduct;
+      }));
+    } else {
+      setCart([...cart, { ...item, quantity: Number(target.value) }]);
+    }
+  }
+
   function findQuantity() {
     const NEGATIVEONE = -1;
     const index = cart.findIndex((item) => item.id === product.id);
@@ -61,7 +79,7 @@ export default function ProductButtons({ product }) {
         type="number"
         value={ findQuantity() }
         data-testid={ `customer_products__input-card-quantity-${product.id}` }
-        onChange={ ({ target }) => setCart(target.value) }
+        onChange={ (e) => handleChange(e, product) }
       />
       <button
         data-testid={ `customer_products__button-card-add-item-${product.id}` }
