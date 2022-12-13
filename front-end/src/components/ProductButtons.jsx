@@ -70,7 +70,6 @@ export default function ProductButtons({ product }) {
       >
         +
       </button>
-      {/* <h4>{ totalPrice }</h4> */}
     </div>
   );
 }
