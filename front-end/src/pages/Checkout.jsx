@@ -142,7 +142,7 @@ export default function Checkout() {
         name="sellerId"
         onChange={ handleInput }
         defaultValue=""
-        data-testid="customer_checkout__select-seller"
+        data-testid={ `${customerCheckout}select-seller` }
       >
         <option value=""> </option>
         {sellersName.map(({ id, name }, index) => (
@@ -154,7 +154,7 @@ export default function Checkout() {
       <input
         type="text"
         name="delAddress"
-        data-testid={ `${customerCheckout}customer_checkout__input-address` }
+        data-testid={ `${customerCheckout}input-address` }
         onChange={ handleInput }
         value={ input.delAddress }
       />
