@@ -1,66 +1,89 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { signLogin } from '../services/endPointRequest';
-import { SaveStorage, readStorage } from '../services/localStorageServices';
+import Navbar from '../components/Navbar';
+import CartContext from '../context/CartContext';
+import { getData, postData } from '../services/endPointRequest';
+import { readStorage } from '../services/localStorageServices';
 
 export default function Checkout() {
-  const sellerName = 'Fulana Pereira';
+  const { cart, setCart } = useContext(CartContext);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [sellersName, setSellersName] = useState([]);
+  const [input, setInput] = useState({
+    sellerId: '',
+    delAddress: '',
+    delNumber: '',
+  });
+  const [errorMessage, setErrorMessage] = useState('');
+
   const history = useHistory();
   const customerElement = 'customer_checkout__element-order-table';
   const customerCheckout = 'customer_checkout__';
-  const [addressNumber, setAddressNumber] = useState('');
-  const [address, setAddress] = useState('');
-  const [productsArray, setProductsArray] = useState([
-    {
-      id: 1,
-      name: 'Skol Lata 250ml',
-      quantity: 10,
-      price: 2.2,
-      url_image: 'http://localhost:3001/images/skol_lata_350ml.jpg',
-    },
-    {
-      id: 2,
-      name: 'Heineken 600ml',
-      quantity: 2,
-      price: 7.5,
-      url_image: 'http://localhost:3001/images/heineken_600ml.jpg',
-    },
-    {
-      id: 3,
-      name: 'Antarctica Pilsen 300ml',
-      quantity: 5,
-      price: 2.49,
-      url_image: 'http://localhost:3001/images/antarctica_pilsen_300ml.jpg',
-    },
-  ]);
 
-  const handleDelete = (id) => {
-    const thisProducts = productsArray.filter((elem) => elem.id !== id);
-    setProductsArray(thisProducts);
-  };
-
-  function somarTudo(total, item) {
-    return total + (item.price * item.quantity);
+  function formatTotalPrice(total) {
+    const totalPriceString = total.toFixed(2);
+    return totalPriceString.replace('.', ',');
   }
 
-  const totalPrice = productsArray.reduce(somarTudo, 0).toFixed(2);
+  useEffect(() => {
+    const total = cart.reduce((acc, cartItem) => {
+      const floatPrice = parseFloat(cartItem.price);
+      acc += floatPrice * cartItem.quantity;
+      return acc;
+    }, 0);
 
-  const productsFields = {
-    sellerName,
-    totPrice: totalPrice,
-    delAddress: address,
-    delNumber: addressNumber,
-    products: productsArray,
+    setTotalPrice(total);
+  }, [cart]);
+
+  const getSellers = async () => {
+    const token = readStorage('token');
+    const sellers = await getData('/users/sellers', token);
+    setSellersName(sellers);
   };
+
+  useEffect(() => {
+    getSellers();
+  }, []);
+
+  const handleInput = ({ target }) => {
+    setInput({ ...input, [target.name]: target.value });
+  };
+
+  const handleDelete = (id) => {
+    const thisProducts = cart.filter((elem) => elem.id !== id);
+    setCart(thisProducts);
+  };
+
   const handleAccess = async () => {
-    const responseProducts = await signLogin('sales', productsFields);
-    const { newSaleId } = responseProducts;
-    SaveStorage('products', productsFields);
-    readStorage('token');
-    history.push(`/customer/orders/${newSaleId}`);
+    const { sellerId, delAddress, delNumber } = input;
+
+    const order = {
+      sellerId: Number(sellerId),
+      totPrice: Number(totalPrice.toFixed(2)),
+      delAddress,
+      delNumber,
+      products: cart.map((cartItem) => ({
+        name: cartItem.name,
+        quantity: cartItem.quantity,
+      })),
+    };
+
+    const token = readStorage('token');
+
+    try {
+      const { newSaleId } = await postData('/sales', order, token);
+      history.push(`/customer/orders/${newSaleId}`);
+    } catch ({ response }) {
+      const {
+        data: { message },
+      } = response;
+      setErrorMessage(message);
+    }
   };
+
   return (
     <>
+      <Navbar />
       <h3>Finalizar Pedido</h3>
       <table>
         <thead>
@@ -74,42 +97,27 @@ export default function Checkout() {
           </tr>
         </thead>
         <tbody>
-          {productsArray.map((pro) => (
+          {cart.map((pro, index) => (
             <tr key={ pro.id }>
-              <td
-                data-
-                testid={ `${customerElement}-item-number-${pro.id}` }
-              >
-                {pro.id}
+              <td data-testid={ `${customerElement}-item-number-${index}` }>
+                {index + 1}
               </td>
-              <td
-                data-testid={ `${customerElement}-name-${pro.id}` }
-              >
+              <td data-testid={ `${customerElement}-name-${index}` }>
                 {pro.name}
               </td>
-              <td
-                data-testid={ `${customerElement}-quantity-${pro.id}` }
-              >
+              <td data-testid={ `${customerElement}-quantity-${index}` }>
                 {pro.quantity}
               </td>
-              <td
-                data-
-                testid={ `${customerElement}-unit-price-${pro.id}` }
-              >
-                {Number(pro.price).toFixed(2)}
+              <td data-testid={ `${customerElement}-unit-price-${index}` }>
+                {Number(pro.price).toFixed(2).replace('.', ',')}
               </td>
-              <td
-                data-testid={ `${customerElement}-sub-total-${pro.id}` }
-              >
-                {(Number(pro.price) * Number(pro.quantity)).toFixed(2)}
+              <td data-testid={ `${customerElement}-sub-total-${index}` }>
+                {(Number(pro.price) * Number(pro.quantity))
+                  .toFixed(2)
+                  .replace('.', ',')}
               </td>
-              <td
-                data-testid={ `${customerElement}-remove-${pro.id}` }
-              >
-                <button
-                  type="button"
-                  onClick={ () => handleDelete(pro.id) }
-                >
+              <td data-testid={ `${customerElement}-remove-${index}` }>
+                <button type="button" onClick={ () => handleDelete(pro.id) }>
                   Remover
                 </button>
               </td>
@@ -117,10 +125,8 @@ export default function Checkout() {
           ))}
         </tbody>
       </table>
-      <h3
-        data-testid={ `${customerCheckout}element-order-total-price` }
-      >
-        {`Total R$: ${totalPrice}`}
+      <h3 data-testid={ `${customerCheckout}element-order-total-price` }>
+        {`Total R$: ${formatTotalPrice(totalPrice)}`}
       </h3>
       <h3>Detalhes e Endereço para Entrega</h3>
       <table>
@@ -132,22 +138,32 @@ export default function Checkout() {
           </tr>
         </thead>
       </table>
-      <select data-testid="customer_checkout__select-seller">
-        <option>
-          { sellerName }
-        </option>
+      <select
+        name="sellerId"
+        onChange={ handleInput }
+        defaultValue=""
+        data-testid={ `${customerCheckout}select-seller` }
+      >
+        <option value=""> </option>
+        {sellersName.map(({ id, name }, index) => (
+          <option key={ index } value={ id }>
+            {name}
+          </option>
+        ))}
       </select>
       <input
         type="text"
-        data-testid={ `${customerCheckout}customer_checkout__input-address` }
-        onChange={ ({ target }) => { setAddress(target.value); } }
-        value={ address }
+        name="delAddress"
+        data-testid={ `${customerCheckout}input-address` }
+        onChange={ handleInput }
+        value={ input.delAddress }
       />
       <input
-        type="text"
+        type="number"
+        name="delNumber"
         data-testid={ `${customerCheckout}input-address-number` }
-        onChange={ ({ target }) => { setAddressNumber(target.value); } }
-        value={ addressNumber }
+        onChange={ handleInput }
+        value={ input.delNumber }
       />
       <button
         type="button"
@@ -156,6 +172,11 @@ export default function Checkout() {
       >
         Finalizar Pedido
       </button>
+      {errorMessage && (
+        <h5>
+          { errorMessage}
+        </h5>
+      )}
     </>
   );
 }

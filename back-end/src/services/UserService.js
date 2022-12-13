@@ -60,17 +60,10 @@ class UserService {
     return { name, email, role, token };
   }
 
-  static async getSellerByName(name) {
-    const seller = await User.findOne({
-      where: { name, role: 'seller' },
-    });
-    return seller;
-  }
-
   static async getAllSellers() {
     const sellers = await User.findAll({
       where: { role: 'seller' },
-      attributes: ['name'],
+      attributes: ['id', 'name'],
     });
     return sellers;
   }

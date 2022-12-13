@@ -114,7 +114,6 @@ function InputRegisterByAdmin({ getUsers }) {
           <select
             id="role"
             name="roleToRegister"
-            defaultValue=""
             value={ userFields.roleToRegister }
             onChange={ handleInput }
             data-testid="admin_manage__select-role"

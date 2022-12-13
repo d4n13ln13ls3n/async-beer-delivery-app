@@ -4,37 +4,19 @@ import CartContext from '../context/CartContext';
 
 export default function ProductButtons({ product }) {
   const { cart, setCart } = useContext(CartContext);
-  console.log(cart);
 
-  // const handleDecrease = (item) => {
-  //   const isAlreadyAddedOnCart = cart.some(
-  //     (cartProduct) => cartProduct.id === item.id,
-  //   );
-
-  //   if (isAlreadyAddedOnCart) {
-  //     setCart((prev) => prev.map((cartProduct) => {
-  //       if (cartProduct.id === item.id) {
-  //         return { ...cartProduct, quantity: cartProduct.quantity - 1 };
-  //       }
-
-  //       return cartProduct;
-  //     }));
-  //   } else if (item.quantity === 1) {
-  //     setCart(cart.filter((cartItem) => cartItem.quantity !== 0));
-  //   }
-  // };
-
-  const handleDecrease = () => {
+  function handleDecrease(item) {
     const updatedCart = cart.map((cartItem) => {
-      if (cartItem.quantity <= 0) {
-        return cart.filter((item) => item.quantity <= 0);
+      if (cartItem.id === item.id) {
+        return { ...cartItem, quantity: cartItem.quantity - 1 };
       }
-      cartItem.quantity -= 1;
       return cartItem;
     });
 
-    return setCart(updatedCart);
-  };
+    const filteredCart = updatedCart.filter((cartItem) => cartItem.quantity > 0);
+
+    setCart(filteredCart);
+  }
 
   function handleAddToCart(item) {
     const isAlreadyAddedOnCart = cart.some(
@@ -54,6 +36,24 @@ export default function ProductButtons({ product }) {
     }
   }
 
+  function handleChange({ target }, item) {
+    const isAlreadyAddedOnCart = cart.some(
+      (cartProduct) => cartProduct.id === item.id,
+    );
+
+    if (isAlreadyAddedOnCart) {
+      setCart(cart.map((cartProduct) => {
+        if (cartProduct.id === item.id) {
+          return { ...cartProduct, quantity: Number(target.value) };
+        }
+
+        return cartProduct;
+      }));
+    } else {
+      setCart([...cart, { ...item, quantity: Number(target.value) }]);
+    }
+  }
+
   function findQuantity() {
     const NEGATIVEONE = -1;
     const index = cart.findIndex((item) => item.id === product.id);
@@ -66,27 +66,12 @@ export default function ProductButtons({ product }) {
     return 0;
   }
 
-  // function updateQuantity(cartProductToUpdate, amount) {
-  //   if (cartProductToUpdate.quantity + amount <= 0) {
-  //     setCart((prev) => prev
-  //       .filter((cartProduct) => cartProduct.id !== cartProductToUpdate.id));
-  //   }
-
-  //   setCart((prev) => prev.map((cartProduct) => {
-  //     if (cartProduct.id === cartProductToUpdate.id) {
-  //       return { ...cartProduct, quantity: cartProduct.quantity + amount };
-  //     }
-
-  //     return cartProduct;
-  //   }));
-  // }
-
   return (
     <div>
       <button
         data-testid={ `customer_products__button-card-rm-item-${product.id}` }
         type="button"
-        onClick={ handleDecrease }
+        onClick={ () => handleDecrease(product) }
       >
         -
       </button>
@@ -94,7 +79,7 @@ export default function ProductButtons({ product }) {
         type="number"
         value={ findQuantity() }
         data-testid={ `customer_products__input-card-quantity-${product.id}` }
-        onChange={ ({ target }) => setCart(target.value) }
+        onChange={ (e) => handleChange(e, product) }
       />
       <button
         data-testid={ `customer_products__button-card-add-item-${product.id}` }
@@ -103,7 +88,6 @@ export default function ProductButtons({ product }) {
       >
         +
       </button>
-      {/* <h4>{ totalPrice }</h4> */}
     </div>
   );
 }
