@@ -1,28 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import DetailsTable from '../components/DetailsTable';
 import Navbar from '../components/Navbar';
-import UpdateOrderBar from '../components/UpdateOrderBar';
+import UpdateOrderBarSeller from '../components/UpdateOrderBarSeller';
+import { getData } from '../services/endPointRequest';
+import { readStorage } from '../services/localStorageServices';
 
 export default function SellerOrderId() {
-  const [currentStatus, setCurrentStatus] = useState('');
-  const [CurrentOrderData, setCurrentOrderData] = useState({
-    orderId,
-    saleDate,
-  });
+  const [order, setOrder] = useState({});
+  const { id } = useParams();
+
+  const getOrder = async () => {
+    const token = readStorage('token');
+    const sale = await getData(`/sales/${id}/sellers`, token);
+    setOrder(sale);
+  };
+
+  useEffect(() => {
+    getOrder();
+  }, []);
 
   return (
-    <div>
+    <>
       <Navbar />
-      <UpdateOrderBar
-        orderId={ CurrentOrderData.orderId }
-        date={ CurrentOrderData.date }
-        currentStatus={ currentStatus }
-        setCurrentStatus={ setCurrentStatus }
-      />
-      <SellerOrderId
-        setCurrentStatus={ setCurrentStatus }
-        setCurrentOrderData={ setCurrentOrderData }
-        currentPath="seller"
-      />
-    </div>
+      <UpdateOrderBarSeller order={ order } getOrder={ getOrder } />
+      <DetailsTable products={ order.products || [] } />
+      <p data-testid="seller_order_details__element-order-total-price">
+        {`R$ ${Number(order.totalPrice).toFixed(2).replace('.', ',')}`}
+      </p>
+    </>
   );
 }
