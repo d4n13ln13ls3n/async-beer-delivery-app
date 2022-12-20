@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import { signLogin } from '../services/endPointRequest';
 import loginContext from '../context/LoginContext';
 import { readStorage, SaveStorage } from '../services/localStorageServices';
@@ -58,25 +60,28 @@ function InputLogin() {
   }
 
   return (
-    <form className="login-container">
-      <label className="label-login" htmlFor="email">
-        Login:
-        <br />
-        <input
+    <Form className="login-container">
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label className="label-login label-login fs-4 ps-3" htmlFor="email">
+          Login
+        </Form.Label>
+        <Form.Control
+          className="shadow-sm p-3 border border-dark"
           id="email"
           name="email"
           data-testid="common_login__input-email"
           type="email"
-          placeholder="Digite o seu e-mail"
+          placeholder="email@trybeer.com.br"
           value={ email }
           onChange={ ({ target }) => setEmail(target.value) }
         />
-      </label>
-      <label className="label-login" htmlFor="password">
-        <br />
-        Senha:
-        <br />
-        <input
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label className="label-login fs-4 ps-3" htmlFor="password">
+          Senha
+        </Form.Label>
+        <Form.Control
+          className="shadow-sm p-3 border border-dark"
           id="password"
           data-testid="common_login__input-password"
           type="password"
@@ -84,26 +89,30 @@ function InputLogin() {
           placeholder="Digite a sua senha"
           onChange={ ({ target }) => setPassword(target.value) }
         />
-      </label>
-      <br />
-      <button
-        id="button"
-        value="Login"
-        data-testid="common_login__button-login"
-        type="button"
-        disabled={ isDisabled }
-        onClick={ handleAcess }
-      >
-        LOGIN
-      </button>
-      <br />
-      <button
-        data-testid="common_login__button-register"
-        type="button"
-        onClick={ handleCreate }
-      >
-        Ainda não tenho conta
-      </button>
+      </Form.Group>
+      <div className="d-grid gap-2">
+        <Button
+          size="lg"
+          variant="success"
+          id="button"
+          value="Login"
+          data-testid="common_login__button-login"
+          type="button"
+          disabled={ isDisabled }
+          onClick={ handleAcess }
+        >
+          LOGIN
+        </Button>
+        <Button
+          size="lg"
+          variant="outline-success"
+          data-testid="common_login__button-register"
+          type="button"
+          onClick={ handleCreate }
+        >
+          Ainda não tenho conta
+        </Button>
+      </div>
       {
         errorMessage === '' ? '' : (
           <span
@@ -112,7 +121,7 @@ function InputLogin() {
             { errorMessage }
           </span>)
       }
-    </form>
+    </Form>
   );
 }
 

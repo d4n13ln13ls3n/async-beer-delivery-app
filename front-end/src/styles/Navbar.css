@@ -1,0 +1,36 @@
+.navbar {
+    background-color: #036B52 !important;
+    top: 0%;
+    padding: 0% !important;
+}
+
+.nav-container-left {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+  } 
+
+.nav-container-right {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+} 
+
+.nav-container-username {
+    background-color: #421981;
+}
+
+.nav-container-logout {
+    background-color: #056CF9;
+}
+
+/* make a font style as bold */
+a {
+    font-weight: bold !important;
+    color: #FFFFFF !important;
+}
+
+a:hover {
+  background-color: #2FC18C;
+  color: #000000 !important;
+}

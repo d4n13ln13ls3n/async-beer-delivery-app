@@ -67,8 +67,9 @@ export default function ProductButtons({ product }) {
   }
 
   return (
-    <div>
+    <div className="product-buttons">
       <button
+        className="button-add-cart rounded-start"
         data-testid={ `customer_products__button-card-rm-item-${product.id}` }
         type="button"
         onClick={ () => handleDecrease(product) }
@@ -82,6 +83,7 @@ export default function ProductButtons({ product }) {
         onChange={ (e) => handleChange(e, product) }
       />
       <button
+        className="button-add-cart rounded-end"
         data-testid={ `customer_products__button-card-add-item-${product.id}` }
         type="button"
         onClick={ () => handleAddToCart(product) }

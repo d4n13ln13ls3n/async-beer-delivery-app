@@ -16,6 +16,8 @@ import LoginProvider from './context/LoginProvider';
 import RegisterProvider from './context/RegisterProvider';
 import CartProvider from './context/CartProvider';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 function App() {
   return (
     <LoginProvider>

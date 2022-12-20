@@ -1,8 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Button, Form } from 'react-bootstrap';
 import { signLogin } from '../services/endPointRequest';
 import registerContext from '../context/RegisterContext';
 import { SaveStorage } from '../services/localStorageServices';
+import '../styles/Register.css';
 
 function InputRegister() {
   const {
@@ -47,10 +49,12 @@ function InputRegister() {
   };
 
   return (
-    <div className="register-container">
-      <label className="label-login" htmlFor="name">
-        Nome:
-        <input
+    <Form className="register-container">
+      <Form.Group controlId="formBasicName">
+        <Form.Label className="fs-4 ps-3 pb-0 label-register" htmlFor="name">
+          Nome
+        </Form.Label>
+        <Form.Control
           id="name"
           data-testid="common_register__input-name"
           type="text"
@@ -58,11 +62,12 @@ function InputRegister() {
           value={ name }
           onChange={ ({ target }) => setName(target.value) }
         />
-      </label>
-
-      <label className="label-login" htmlFor="email">
-        Login:
-        <input
+      </Form.Group>
+      <Form.Group controlId="formBasicEmail">
+        <Form.Label className="fs-4 ps-3 label-register" htmlFor="email">
+          Login
+        </Form.Label>
+        <Form.Control
           id="email"
           data-testid="common_register__input-email"
           type="email"
@@ -70,13 +75,12 @@ function InputRegister() {
           value={ email }
           onChange={ ({ target }) => setEmail(target.value) }
         />
-      </label>
-
-      <label className="label-login" htmlFor="password">
-
-        Senha:
-
-        <input
+      </Form.Group>
+      <Form.Group controlId="formBasicPassword">
+        <Form.Label className="fs-4 ps-3 label-register" htmlFor="password">
+          Senha
+        </Form.Label>
+        <Form.Control
           id="password"
           data-testid="common_register__input-password"
           type="password"
@@ -84,16 +88,20 @@ function InputRegister() {
           placeholder="Digite a sua senha"
           onChange={ ({ target }) => setPassword(target.value) }
         />
-      </label>
-
-      <button
-        data-testid="common_register__button-register"
-        type="button"
-        disabled={ isDisabled }
-        onClick={ hadleRegister }
-      >
-        CADASTRAR
-      </button>
+      </Form.Group>
+      <div className="d-grid gap-2 pt-3">
+        <Button
+          className=""
+          variant="success"
+          size="lg"
+          data-testid="common_register__button-register"
+          type="button"
+          disabled={ isDisabled }
+          onClick={ hadleRegister }
+        >
+          CADASTRAR
+        </Button>
+      </div>
       {
         errorMessage === '' ? '' : (
           <span
@@ -103,7 +111,7 @@ function InputRegister() {
           </span>)
       }
 
-    </div>
+    </Form>
   );
 }
 export default InputRegister;

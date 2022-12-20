@@ -1,9 +1,12 @@
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Nav from 'react-bootstrap/Nav';
 
 export default function GenericLink({ route, name, testid, onClick }) {
   return (
-    <Link to={ route } data-testid={ testid } onClick={ onClick }>{ name }</Link>
+    <Nav.Link className="p-3" href={ route } data-testid={ testid } onClick={ onClick }>
+      {name}
+    </Nav.Link>
   );
 }
 

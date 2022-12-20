@@ -4,25 +4,33 @@ import ProductButtons from './ProductButtons';
 
 export default function Products({ price, urlImage, productName, id, product }) {
   return (
-    <div>
-      <p
-        data-testid={ `customer_products__element-card-price-${id}` }
-      >
-        { price.replace('.', ',') }
-      </p>
+    <div className="card border-5 container-product-card shadow m-2 bg-body">
+      <div>
+        <span>R$ </span>
+        <span
+          data-testid={ `customer_products__element-card-price-${id}` }
+        >
+
+          { price.replace('.', ',') }
+        </span>
+      </div>
       <img
+        className="mx-auto d-block "
         src={ urlImage }
         alt={ productName }
         data-testid={ `customer_products__img-card-bg-image-${id}` }
-        width="150px"
+        width="100rem"
       />
-      <p
-        data-testid={ `customer_products__element-card-title-${id}` }
-        value={ productName }
-      >
-        { productName }
-      </p>
-      <ProductButtons product={ product } />
+      <div className="card-body">
+        <p
+          className="text-center"
+          data-testid={ `customer_products__element-card-title-${id}` }
+          value={ productName }
+        >
+          { productName }
+        </p>
+        <ProductButtons product={ product } />
+      </div>
     </div>
   );
 }
