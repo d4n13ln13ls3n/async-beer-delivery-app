@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto');
+
+* {
+    border: none !important;
+}
+
+table {
+    border-collapse: separate !important;
+    border-spacing: 0 0.5em !important;
+    padding: auto !important;
+}
+
+th {
+    text-align: center !important;
+}
+
+td {
+    text-align: center !important;
+    padding: 0 !important;
+    width: auto !important;
+}
+
+.checkoutTitle {
+    margin-top: 1em !important;
+}
+
+.checkoutDetails, .deliveryContainer {
+    background-color: #FBFFFE !important;
+    box-shadow: 0.1em 0.2em 0em 0em #00000015 !important;
+}
+
+.numberTable {
+    text-align: center;
+    font-weight: bold;
+    font-size: x-large;
+    background-color: #2fc18c !important; 
+}
+
+.descriptionTable {
+    background-color: #EAF1EF !important;
+    font-size: x-large;
+    /* font-weight: bold; */
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.quantityTable {
+    background-color: #036b52 !important;
+    color: #FFF;
+    font-size: 1em !important;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.valueItem {
+    background-color: #421981 !important;
+    color: #FFF;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.partialValue {
+    background-color: #056CF9 !important;
+    color: #FFF;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.removeItemTable {
+    background-color: #2fc18c !important;
+    font-size: 1em !important;
+    font-weight: bold !important;
+    text-align: center;
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.totalCheckout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.totalCheckout h3 {
+    align-self: flex-end;
+    background-color: #036b52;
+    padding: 0.5em 0.8em;
+    color: #FFF;
+    border-radius: 0.3em;
+    margin-top: 0.5em;
+    font-weight: bold !important;
+}
+
+.checkoutContainer input, select {
+    border: 0.1em solid black !important;
+    min-height: 3.5vh !important;
+    /* margin: 0.5em !important; */
+    width: 80% !important;
+}
+
+.deliveryInfoTable th {
+    text-align: left !important;
+}
+
+.deliveryInfoTable td {
+    text-align: left !important;;
+}
+
+.deliveryInfoTable tr th td{
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.finish-button {
+    align-self: flex-end;
+    background-color: #036b52;
+    padding: 1.0em 3.5em;
+    color: #FFF;
+    border-radius: 0.3em;
+    margin-top: 1.0em;
+    margin-bottom: 1.0em;
+    font-size: x-large;
+    font-weight: bold !important;
+}
