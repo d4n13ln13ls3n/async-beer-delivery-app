@@ -1,0 +1,65 @@
+.ordersContainer a {
+    color: #000 !important;
+    display: flex;
+    margin: 0.5em !important;
+    border: 1px solid #B1C2BE !important;
+    min-width: 30vh;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    background-color: none !important;
+}
+
+.cardContainer {
+    display: inline-flex;
+    justify-content: center;
+    min-width: 25rem;
+}
+
+
+.orderNumberContainer {
+    background-color: #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.orderNumberContainer{
+    margin: 1em !important;
+}
+
+.orderDataContainer {
+    background-color: #EAF1EF;
+}
+
+.orderDataContainer {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 15em;
+}
+
+.orderStatus {
+    margin: 0.2em;
+    text-align: center;
+    /* background-color: #000; */
+    border-radius: 1em;
+    padding: 0em 0.5em;
+}
+
+.orderDate {
+    background-color: #F2FFFC;
+    padding: 0.2em 0.5em;
+    margin: 0.3em;
+    border-radius: 0.3em;
+    text-align: center;
+}
+
+.costumerAdress p{
+    display: flex;
+    flex-flow: column wrap;
+    width: 300%;
+    justify-content: flex-end;
+}

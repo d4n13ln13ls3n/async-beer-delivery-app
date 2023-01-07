@@ -1,4 +1,6 @@
+/* eslint-disable react/jsx-max-depth */
 import React, { useState, useEffect } from 'react';
+import Container from 'react-bootstrap/esm/Container';
 import { Link, useLocation } from 'react-router-dom';
 import { getData } from '../services/endPointRequest';
 import { readStorage } from '../services/localStorageServices';
@@ -20,7 +22,6 @@ export default function OrderCard() {
   useEffect(() => {
     const path = location.pathname.split('/')[1];
     const fetchOrders = async (route) => {
-      console.log(path);
       setUserType(path);
       const response = await getData(`sales/${route}s`, userToken);
       setData(response);
@@ -29,8 +30,8 @@ export default function OrderCard() {
   }, [location.pathname, userToken]);
 
   return (
-    <div>
-      { data.map((order) => {
+    <Container className="ordersContainer">
+      {data.map((order) => {
         const {
           id,
           saleDate,
@@ -40,37 +41,48 @@ export default function OrderCard() {
           deliveryNumber,
         } = order;
         return (
-          <div key={ id }>
+          <div key={ id } className="cardContainer">
             <Link to={ `orders/${id}` }>
-              <div>
+              <div className="orderNumberContainer">
                 <p data-testid={ `${userType}${genericDTId}order-id-${id}` }>
                   {`Pedido ${id}`}
                 </p>
               </div>
-              <div>
-                <p
-                  data-testid={ `${userType}${genericDTId}delivery-status-id-${id}` }
-                >
-                  {status}
-                </p>
+              <div className="orderDataContainer">
+                <div className="orderStatus">
+                  <p
+                    data-testid={ `${userType}${genericDTId}delivery-status-id-${id}` }
+                  >
+                    {status}
+                  </p>
+                </div>
+                <div className="orderDateValueContainer">
+                  <div className="orderDate">
+                    <p
+                      data-testid={ `${userType}${genericDTId}order-date-id-${id}` }
+                    >
+                      {saleDate}
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      data-testid={ `${userType}${genericDTId}card-price-id-${id}` }
+                      className="orderDate"
+                    >
+                      {totalPrice.replace('.', ',')}
+                    </p>
+                  </div>
+                </div>
+                <div className="costumerAdress">
+                  {userType === 'seller' ? (
+                    <p>{`${deliveryAddress}, N ${deliveryNumber}`}</p>
+                  ) : null}
+                </div>
               </div>
-              <div>
-                <p data-testid={ `${userType}${genericDTId}order-date-id-${id}` }>
-                  {saleDate}
-                </p>
-              </div>
-              <div>
-                <p data-testid={ `${userType}${genericDTId}card-price-id-${id}` }>
-                  { totalPrice.replace('.', ',')}
-                </p>
-              </div>
-              {userType === 'seller' ? (
-                <p>{`${deliveryAddress}, N ${deliveryNumber}`}</p>
-              ) : null}
             </Link>
           </div>
         );
       })}
-    </div>
+    </Container>
   );
 }
