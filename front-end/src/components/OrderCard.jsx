@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-max-depth */
 import React, { useState, useEffect } from 'react';
-import Container from 'react-bootstrap/esm/Container';
+// import Container from 'react-bootstrap/esm/Container';
 import { Link, useLocation } from 'react-router-dom';
 import { getData } from '../services/endPointRequest';
 import { readStorage } from '../services/localStorageServices';
@@ -31,7 +31,7 @@ export default function OrderCard() {
   }, [location.pathname, userToken]);
 
   return (
-    <Container className="ordersContainer">
+    <div className="ordersContainer">
       {data.map((order) => {
         const {
           id,
@@ -43,9 +43,12 @@ export default function OrderCard() {
         } = order;
         return (
           <div key={ id } className="cardContainer">
-            <Link to={ `orders/${id}` }>
+            <Link to={ `orders/${id}` } className="cardLink">
               <div className="orderNumberContainer">
-                <p data-testid={ `${userType}${genericDTId}order-id-${id}` }>
+                <p
+                  data-testid={ `${userType}${genericDTId}order-id-${id}` }
+                  className="Pending"
+                >
                   {`Pedido 000${id}`}
                 </p>
               </div>
@@ -65,10 +68,10 @@ export default function OrderCard() {
                       {saleDate}
                     </p>
                   </div>
-                  <div>
+                  <div className="orderDate">
                     <p
                       data-testid={ `${userType}${genericDTId}card-price-id-${id}` }
-                      className="orderDate"
+                      className="date-order"
                     >
                       {`R$ ${totalPrice.replace('.', ',')}`}
                     </p>
@@ -84,6 +87,6 @@ export default function OrderCard() {
           </div>
         );
       })}
-    </Container>
+    </div>
   );
 }

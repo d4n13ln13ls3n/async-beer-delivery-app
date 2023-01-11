@@ -65,7 +65,7 @@ function InputLogin() {
         Login
       </Form.Label>
       <Form.Control
-        className="shadow-sm p-2 border border-dark input-group"
+        className="shadow-sm p-2 border border-dark input-group-login"
         id="email"
         name="email"
         data-testid="common_login__input-email"
@@ -78,7 +78,7 @@ function InputLogin() {
         Senha
       </Form.Label>
       <Form.Control
-        className="shadow-sm p-2 border border-dark input-group"
+        className="shadow-sm p-2 border border-dark input-group-login"
         id="password"
         data-testid="common_login__input-password"
         type="password"
@@ -88,7 +88,7 @@ function InputLogin() {
       />
       <div className="d-grid gap-2">
         <Button
-          className="input-group"
+          className="input-group-login"
           size="lg"
           variant="success"
           id="button"
@@ -101,7 +101,7 @@ function InputLogin() {
           LOGIN
         </Button>
         <Button
-          className="input-group"
+          className="input-group-login"
           size="lg"
           variant="outline-success"
           data-testid="common_login__button-register"

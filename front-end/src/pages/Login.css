@@ -11,7 +11,7 @@
     flex-direction: column;
 }
 
-.input-group {
+.input-group-login {
     width: 48vh !important;
     margin: 0.2em 0em 0.2em 0em !important;
 }

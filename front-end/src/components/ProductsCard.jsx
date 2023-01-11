@@ -1,11 +1,12 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import ProductButtons from './ProductButtons';
+import '../styles/Products.css';
 
 export default function Products({ price, urlImage, productName, id, product }) {
   return (
     <div className="card border-5 container-product-card shadow m-2 bg-body">
-      <div>
+      <div className="priceContainer">
         <span>R$ </span>
         <span
           data-testid={ `customer_products__element-card-price-${id}` }

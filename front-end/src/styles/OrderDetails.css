@@ -36,8 +36,19 @@
     padding: 0.2em 3em !important;
 }
 
+.statusContainer {
+    display: flex;
+    justify-content: center;
+    margin: 0.8em 0.5em;
+}
+
 .cardStatus {
-    padding: 2em !important;
+    border-radius: 0.5em !important;
+    margin-top: 0.1em;
+    padding: 1.2em 2em !important;
+    height: 8vh;
+    width: 20vh;
+    text-transform: uppercase;
 }
 
 .statusPending, .Pendente {

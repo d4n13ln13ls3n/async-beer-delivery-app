@@ -12,7 +12,8 @@
   border: 1px solid rgb(139, 128, 128) !important;
   border-radius: 0.5em;
   margin: 0em 0em 0.5em 0em;
-  padding: 0.4em 0em 0.4em 0em; 
+  padding: 0.4em 0em 0.4em 0em;
+  width: 30vh !important;
 }
 
 .input-select {

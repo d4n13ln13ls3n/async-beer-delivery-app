@@ -1,11 +1,8 @@
-.ordersContainer a {
-    color: #000 !important;
+.ordersContainer {
     display: flex;
-    margin: 0.5em !important;
-    border: 1px solid #B1C2BE !important;
-    max-width: 67.2vh;
-    height: 22vh;
-    text-decoration: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 1.5em;
 }
 
 .ordersContainer a:hover, a:active {
@@ -13,57 +10,71 @@
 }
 
 .cardContainer {
-    display: inline;
-    justify-content: center;
+    margin: 1em !important;
+    border: 1px solid #0202021a !important;
+    width: 60vh;
+    height: 15vh;
+    box-shadow: 0.2em 0.2em 0em 0em rgba(0, 0, 0, 0.192);
+}
+
+.cardLink {
+    display: flex;
+    text-decoration: none;
+    color: rgb(0, 0, 0) !important;
+    height: 15vh;
 }
 
 .orderNumberContainer {
     background-color: #FFF;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    max-width: 20vh !important;
+}
+
+.Pending{
+    font-weight: initial;
     text-align: center;
-    margin: 1em !important;
-    height: 15vh;
+    margin-top: 2em;
 }
 
 .orderDateValueContainer {
-    width: 30vh;
+    display: flex;
+    flex-direction: column;
+    height: 7vh;
+    width: 22vh;
+    margin: 0.8em 0.4em 0.4em 0.4em;
 }
 
-.orderDataContainer {
-    background-color: #EAF1EF;
-    width: 60vh !important;
-}
-
-.orderDataContainer {
+.orderDataContainer {   
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-}
-
-.orderStatus {
-    text-align: center;
-    /* background-color: #000; */
-    border-radius: 1em;
-    padding: 1em 1em;
+    height: 15vh;
+    background-color: #EAF1EF;
+    width: 50vh !important;
 }
 
 .orderDate {
     background-color: #F2FFFC;
-    padding: 0.1em 1.5em;
-    margin: 0.5em;
     border-radius: 0.3em;
-    text-align: center;
+    margin: 0.2em;
 }
 
 .date-order {
-    margin-top: 0.5em;
+    text-align: center;
+    margin-bottom: auto;
+    padding: 0.2em;
+}
+
+.orderStatus {
+    text-align: center;
+    width: 25vh;
+}
+
+.costumerAdress {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 47vh;
+    height: 4vh;
 }
 
 .costumerAdress p {
-    display: flex;
-    flex-direction: row-reverse;
     font-weight: normal;
-    width: 30em;
 }

@@ -22,12 +22,14 @@ export default function UpdateStatus({ datatestid, progress }) {
   const status = progress;
   const statusBg = status.replace(/\s+/g, '');
   return (
-    <span
-      data-testid={ datatestid }
-      className={ `buttonStatus cardStatus ${statusBg}` }
-    >
-      {progress}
-    </span>
+    <div className="statusContainer">
+      <span
+        data-testid={ datatestid }
+        className={ `cardStatus ${statusBg}` }
+      >
+        {progress}
+      </span>
+    </div>
   );
 }
 

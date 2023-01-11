@@ -16,7 +16,7 @@ export default function UpdateOrderBarSeller({ order, getOrder }) {
 
   const defineColor = async () => {
     if (order.status === 'Preparando') {
-      setStatusColor('preparing');
+      setStatusColor('statusPending');
     } if (order.status === 'Entregue') {
       setStatusColor('statusDelivered');
     } if (order.status === 'Pendente') {

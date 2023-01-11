@@ -63,3 +63,12 @@ input {
     flex-wrap: wrap;
     max-width: min-content;
 }
+
+.priceContainer {
+    background-color: #eaf1ef8a;
+    box-shadow: 0.2em 0.2em 0em rgba(165, 160, 160, 0.616);
+    border-radius: 0.2em;
+    max-width: 7.4vh;
+    padding: 0.3em;
+    margin: 0.5em;
+}
