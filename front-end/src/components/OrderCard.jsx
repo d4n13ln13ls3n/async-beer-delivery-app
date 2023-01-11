@@ -4,6 +4,8 @@ import Container from 'react-bootstrap/esm/Container';
 import { Link, useLocation } from 'react-router-dom';
 import { getData } from '../services/endPointRequest';
 import { readStorage } from '../services/localStorageServices';
+import '../styles/OrderDetails.css';
+import UpdateStatus from './UpdateStatus';
 
 export default function OrderCard() {
   const [data, setData] = useState([]);
@@ -12,7 +14,6 @@ export default function OrderCard() {
   const genericDTId = '_orders__element-'; // Generic Data Test ID
   const location = useLocation();
   console.log(userType);
-  console.log(data);
 
   useEffect(() => {
     const token = readStorage('token');
@@ -45,21 +46,21 @@ export default function OrderCard() {
             <Link to={ `orders/${id}` }>
               <div className="orderNumberContainer">
                 <p data-testid={ `${userType}${genericDTId}order-id-${id}` }>
-                  {`Pedido ${id}`}
+                  {`Pedido 000${id}`}
                 </p>
               </div>
               <div className="orderDataContainer">
                 <div className="orderStatus">
-                  <p
-                    data-testid={ `${userType}${genericDTId}delivery-status-id-${id}` }
-                  >
-                    {status}
-                  </p>
+                  <UpdateStatus
+                    datatestid={ `${userType}${genericDTId}delivery-status-id-${id}` }
+                    progress={ status }
+                  />
                 </div>
                 <div className="orderDateValueContainer">
                   <div className="orderDate">
                     <p
                       data-testid={ `${userType}${genericDTId}order-date-id-${id}` }
+                      className="date-order"
                     >
                       {saleDate}
                     </p>
@@ -69,7 +70,7 @@ export default function OrderCard() {
                       data-testid={ `${userType}${genericDTId}card-price-id-${id}` }
                       className="orderDate"
                     >
-                      {totalPrice.replace('.', ',')}
+                      {`R$ ${totalPrice.replace('.', ',')}`}
                     </p>
                   </div>
                 </div>

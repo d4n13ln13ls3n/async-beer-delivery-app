@@ -60,38 +60,35 @@ function InputLogin() {
   }
 
   return (
-    <Form className="login-container">
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label className="label-login label-login fs-4 ps-3" htmlFor="email">
-          Login
-        </Form.Label>
-        <Form.Control
-          className="shadow-sm p-3 border border-dark"
-          id="email"
-          name="email"
-          data-testid="common_login__input-email"
-          type="email"
-          placeholder="email@trybeer.com.br"
-          value={ email }
-          onChange={ ({ target }) => setEmail(target.value) }
-        />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label className="label-login fs-4 ps-3" htmlFor="password">
-          Senha
-        </Form.Label>
-        <Form.Control
-          className="shadow-sm p-3 border border-dark"
-          id="password"
-          data-testid="common_login__input-password"
-          type="password"
-          value={ password }
-          placeholder="Digite a sua senha"
-          onChange={ ({ target }) => setPassword(target.value) }
-        />
-      </Form.Group>
+    <Form className="form-container">
+      <Form.Label className="label-login label-login fs-4 ps-3" htmlFor="email">
+        Login
+      </Form.Label>
+      <Form.Control
+        className="shadow-sm p-2 border border-dark input-group"
+        id="email"
+        name="email"
+        data-testid="common_login__input-email"
+        type="email"
+        placeholder="email@trybeer.com.br"
+        value={ email }
+        onChange={ ({ target }) => setEmail(target.value) }
+      />
+      <Form.Label className="label-login fs-4 ps-3" htmlFor="password">
+        Senha
+      </Form.Label>
+      <Form.Control
+        className="shadow-sm p-2 border border-dark input-group"
+        id="password"
+        data-testid="common_login__input-password"
+        type="password"
+        value={ password }
+        placeholder="Digite a sua senha"
+        onChange={ ({ target }) => setPassword(target.value) }
+      />
       <div className="d-grid gap-2">
         <Button
+          className="input-group"
           size="lg"
           variant="success"
           id="button"
@@ -104,6 +101,7 @@ function InputLogin() {
           LOGIN
         </Button>
         <Button
+          className="input-group"
           size="lg"
           variant="outline-success"
           data-testid="common_login__button-register"
@@ -113,14 +111,12 @@ function InputLogin() {
           Ainda não tenho conta
         </Button>
       </div>
-      {
-        errorMessage === '' ? '' : (
-          <span
-            data-testid="common_login__element-invalid-email"
-          >
-            { errorMessage }
-          </span>)
-      }
+      {errorMessage === '' ? '' : (
+        <span
+          data-testid="common_login__element-invalid-email"
+        >
+          {errorMessage}
+        </span>)}
     </Form>
   );
 }

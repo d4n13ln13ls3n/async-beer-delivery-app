@@ -4,6 +4,7 @@ import InputRegisterByAdmin from '../components/InputRegisterByAdmin';
 import UsersTable from '../components/UsersTable';
 import { getData } from '../services/endPointRequest';
 import { readStorage } from '../services/localStorageServices';
+import '../styles/Admin.css';
 
 export default function AdminPage() {
   const [usersList, setUsersList] = useState([]);

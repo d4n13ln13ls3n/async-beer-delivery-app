@@ -36,19 +36,23 @@
     padding: 0.2em 3em !important;
 }
 
-.statusPending {
+.cardStatus {
+    padding: 2em !important;
+}
+
+.statusPending, .Pendente {
     background-color: #CCB800;
 }
 
-.statusPreparing {
+.statusPreparing, .Preparando {
     background-color: #66CC00;
 }
 
-.statusOnTheWay {
+.statusOnTheWay, .EmTrânsito {
     background-color: #5ab400;
 }
 
-.statusDelivered {
+.statusDelivered, .Entregue {
     background-color: #00CC9B;
 }
 

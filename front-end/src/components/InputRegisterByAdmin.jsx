@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Container } from 'react-bootstrap';
 import { postData } from '../services/endPointRequest';
 import { readStorage } from '../services/localStorageServices';
 
@@ -67,12 +68,16 @@ function InputRegisterByAdmin({ getUsers }) {
   };
 
   return (
-    <div>
+    <Container className="pb-2 mt-3">
       <h4>Cadastrar novo usuário</h4>
-      <form onSubmit={ handleSubmit }>
-        <label htmlFor="name">
-          Nome:
+      <form
+        onSubmit={ handleSubmit }
+        className="formContainer rounded  border border-2 p-3 shadow-sm"
+      >
+        <label htmlFor="name" className="label-group">
+          Nome
           <input
+            className="d-inline-flex input-group form-control"
             id="name"
             name="name"
             type="text"
@@ -82,10 +87,10 @@ function InputRegisterByAdmin({ getUsers }) {
             data-testid="admin_manage__input-name"
           />
         </label>
-
-        <label htmlFor="email">
-          Email:
+        <label htmlFor="email" className="label-group">
+          Email
           <input
+            className="d-inline-flex input-group form-control"
             id="email"
             name="email"
             type="email"
@@ -95,10 +100,10 @@ function InputRegisterByAdmin({ getUsers }) {
             data-testid="admin_manage__input-email"
           />
         </label>
-
-        <label htmlFor="password">
-          Senha:
+        <label htmlFor="password" className="label-group">
+          Senha
           <input
+            className="d-inline-flex input-group form-control"
             id="password"
             name="password"
             type="password"
@@ -108,10 +113,10 @@ function InputRegisterByAdmin({ getUsers }) {
             data-testid="admin_manage__input-password"
           />
         </label>
-
-        <label htmlFor="role">
-          Tipo:
+        <label htmlFor="role" className="label-group">
+          Tipo
           <select
+            className="d-inline-flex input-select form-select"
             id="role"
             name="roleToRegister"
             value={ userFields.roleToRegister }
@@ -123,21 +128,23 @@ function InputRegisterByAdmin({ getUsers }) {
             <option value="seller">Vendedor(a)</option>
           </select>
         </label>
-
-        <button
-          type="submit"
-          disabled={ isDisabled }
-          data-testid="admin_manage__button-register"
-        >
-          CADASTRAR
-        </button>
+        <div className="btnContainer">
+          <button
+            className="BtnClient"
+            type="submit"
+            disabled={ isDisabled }
+            data-testid="admin_manage__button-register"
+          >
+            CADASTRAR
+          </button>
+        </div>
         {errorMessage && (
           <h5 data-testid="admin_manage__element-invalid-register">
             {errorMessage}
           </h5>
         )}
       </form>
-    </div>
+    </Container>
   );
 }
 export default InputRegisterByAdmin;
