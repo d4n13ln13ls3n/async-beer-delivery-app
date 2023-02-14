@@ -1,7 +1,8 @@
 # Project Async Beer Delivery App
 Projeto Full-Stack desenvolvido em equipe no final do módulo de Back End da [Trybe](https://www.betrybe.com/). 
 
-## ✏ Informações sobre o projeto
+## ✏ Informações sobre o projeto![Captura de tela de 2023-02-14 11-42-45](https://user-images.githubusercontent.com/92753791/218770906-a6246ac0-33e4-45c6-8021-072d64af7b65.png)
+
 O objetivo deste projeto <strong>Full Stack</strong> foi criar um aplicativo de entregas de bebidas que pode ser utilizado por clientes, vendedores e administradores.
 - Foi construída uma API (utilizando o método TDD) e integradas - através do docker-compose - as aplicações para que elas funcionem consumindo um banco de dados MySQL.
 - Foi construído um back-end dockerizado utilizando modelagem de dados através do Sequelize, capaz de ser consumido pelo Front End da aplicação.
