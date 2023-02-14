@@ -55,7 +55,7 @@ O objetivo deste projeto <strong>Full Stack</strong> foi criar um aplicativo de 
   - Para isso, acesse o diretório back-end
   ```
   cd back-end
-  
+  ```
   - Rode o comando
   ```
   npm start
