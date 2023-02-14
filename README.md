@@ -45,6 +45,7 @@ O objetivo deste projeto <strong>Full Stack</strong> foi criar um aplicativo de 
  ```
  git clone git@github.com:d4n13ln13ls3n/async-beer-delivery-app.git
  cd async-beer-delivery-app
+ ```
  
  ## ⚙ 2. Instale as dependências
 
