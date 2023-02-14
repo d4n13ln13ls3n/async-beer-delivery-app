@@ -46,47 +46,48 @@ O objetivo deste projeto <strong>Full Stack</strong> foi criar um aplicativo de 
  git clone git@github.com:d4n13ln13ls3n/async-beer-delivery-app.git
  cd async-beer-delivery-app
  
- 2. Instale as dependências
+ ## ⚙ 2. Instale as dependências
 
-  - Para isso, use o seguinte comando: `npm install`
+  - Para isso, use o seguinte comando: `npm install
   
-  <details>
-  <summary>
-    <strong>🪛 Scripts relevantes do <code>package.json</code> principal</strong>
-  </summary><br>
+ ## ⚙ 3. Inicie a API
+ 
+  - Para isso, acesse o diretório back-end
+  ```
+  cd back-end
+  
+  - Rode o comando
+  ```
+  npm start
+  PS - a API irá rodar na porta 3001, então certifique-se que a mesma não está sendo usada
+  
+  ## ⚙ 4. Acesse o front-end da aplicação
+ 
+  - Para isso, em outra janela do terminal, volte ao diretório raiz e depois acesse o diretório front-end
+  ```
+  cd ..
+  cd front-end
+  
+  - Rode o comando
+  ```
+  npm start
+  PS - A aplicação irá rodar na porta 3000, então certifique-se que a mesma não está sendo usada. Caso esteja, será perguntado se quer rodar em outra porta, o que pode ser feito sem problemas.
+  
+  ## Como usar a aplicação
+  <strong>Cliente</strong>
+  - Para acessar a aplicação como cliente, utilize as credenciais abaixo:
+  ```
+  email: zebirita@email.com
+  senha: $#zebirita#$
+  
+  <strong>Vendedor</strong>
+  - Para acessar a aplicação como vendedor, utilize as credenciais abaixo:
+  ```
+  email: fulana@deliveryapp.com
+  senha: fulana@123
 
-  **Observação:** nesse projeto, utilizamos o gerenciador de processos `pm2`. Caso você queira entender melhor o que são gerenciadores de processos Node, dê uma conferida [nesse link](https://app.betrybe.com/learn/course/5e938f69-6e32-43b3-9685-c936530fd326/module/f04cdb21-382e-4588-8950-3b1a29afd2dd/section/c2647acd-7619-4c8a-a7d8-13b452281c35/lesson/99c92a3a-8b45-4428-8ed6-c1c8a7ffdeac).
-
-  **São os scripts da raiz do projeto (`./package.json`) e não das aplicações individuais `./front-end/package.json` e `./back-end/package.json`**:
-
-  - `start`: Limpa as portas `3000` e `3001` e simula a inicialização no avaliador. Também prepara o campo rodando o `Sequelize` para restaurar o **banco de dados de testes** (final `-test`) e sobe a aplicação com `pm2` em modo `fork` (uma instância para cada aplicação). Nesse modo, as alterações não são assistidas;
-    - *uso (na raiz do projeto): `npm start`*
-
-  - `stop`: Para e deleta as aplicações rodando no `pm2`;
-    - *uso (na raiz do projeto): `npm stop`*
-
-  - `dev`: Limpa as portas `3000` e `3001` e sobe a aplicação com `pm2` em modo `fork` (uma instância pra cada aplicação). Nesse modo, as atualizações são assistidas (modo `watch`);
-    - *uso (na raiz do projeto): `npm run dev`*
-
-  - `dev:prestart`: A partir da raiz, esse comando faz o processo de instalação de dependências (`npm i`) nos dois projetos (`./front-end` e `./back-end`) e roda o `Sequelize` no `./back-end` (lembrar de configurar o `.env` no mesmo);
-    - *uso (na raiz do projeto): `npm run dev:prestart`*
-
-  - `db:reset`: Roda os scripts do `Sequelize` restaurando o **banco de dados de desenvolvimento** (final `-dev`). Utilize esse script caso ocorra algum problema no seu banco local;
-    - *uso (na raiz do projeto): `npm run db:reset`*
-
-  - `db:reset:debug`: Roda os scripts do `Sequelize` restaurando o **banco de dados de desenvolvimento** (final `-dev`). Utilize esse script caso ocorra algum problema no seu banco local. Esse comando também é capaz de retornar informações detalhadas de erros (quando ocorrerem no processo);
-    - *uso (na raiz do projeto): `npm run db:reset:debug`*
-
-  - `test <nomes-dos-arquivos>`: Roda todos os testes (ou uma parte deles caso `<nomes-dos-arquivos>` seja definido) utilizando o **banco de dados de testes** (final `-test`);
-    - *uso (na raiz do projeto): `npm test`, `npm test 01login 02register` ou ainda `npm run test 01 02`*
-
-  - `test:dev <nomes-dos-arquivos>`: Roda todos os testes (ou uma parte deles caso `<nomes-dos-arquivos>` seja definido) utilizando o **banco de dados de desenvolvimento** (final `-dev`); 
-    - *uso (na raiz do projeto): `npm run test:dev`, `npm run test:dev 01login 02register` ou ainda `npm test:dev 01 02`*;
-
-  - `test:dev:open <nomes-dos-arquivos>`: Roda todos os testes (ou uma parte deles caso `<nomes-dos-arquivos>` seja definido) utilizando o **banco de dados de desenvolvimento** (final `-dev`), exemplo `npm test:dev:open 01login 02register` ou ainda `npm test:dev:open 01 02`. Esse teste deve abrir uma janela mostrando o comportamento das páginas;
-    - *uso (na raiz do projeto): `npm run test:dev:open`, `npm run test:dev:open 01login 02register` ou ainda `npm test:dev:open 01 02`*;
-
-  - `test:dev:report "<nomes-dos-arquivos>"`: Roda todos os testes (ou uma parte deles caso `"<nomes-dos-arquivos>"` seja definido) utilizando o **banco de dados de desenvolvimento** (final `-dev`). Esse teste devolve um output em texto com o resultado de todos os testes. Os `logs` são gerados em `./__tests__/reports`.
-    - *uso (na raiz do projeto): `npm run test:dev:report`, `npm run test:dev:report "01login 02register"` ou ainda `npm run test:dev:report "01 02"`*;
-
-</details>
+  <strong>Administrador</strong>
+  - Para acessar a aplicação como administrador, utilize as credenciais abaixo:
+  ```
+  email: adm@deliveryapp.com
+  senha: --adm2@21!!--
