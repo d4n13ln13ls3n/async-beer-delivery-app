@@ -7,7 +7,7 @@ O objetivo deste projeto <strong>Full Stack</strong> foi criar um aplicativo de 
 - Foi construída uma API (utilizando o método TDD) e integradas - através do docker-compose - as aplicações para que elas funcionem consumindo um banco de dados MySQL.
 - Foi construído um back-end dockerizado utilizando modelagem de dados através do Sequelize, capaz de ser consumido pelo Front End da aplicação.
 - Para acessar a aplicação, foi necessário ter um token, portanto a pessoa usuária (cliente, vendedor ou administrador) deverá estar logada para fazer as alterações. 
-- O back end implementou regras de negócio para popular adequadamente a tabela disponível no front-end que será exibida para a pessoa usuária do sistema.
+- As regras de negócio foram implementadas no back end e o cliente pode se comunicar com o front end através de uma API REST.
 </br>
 - A aplicação foi desenvolvida com <strong>Node.js e TypeScript</strong>, utilizando a <strong>arquitetura MSC</strong> (Model, Service, Controller) e <strong>MySQL</strong> para realizar o CRUD (Create, Read, Update and Delete) dos itens.
 - Para gerar e autenticar token foi utilizado o JSON Web Token - <strong>JWT</strong>.
@@ -21,7 +21,7 @@ O objetivo deste projeto <strong>Full Stack</strong> foi criar um aplicativo de 
   - An API was built (using Test-driven Development - TDD) and integrated - through docker-compose - so as to work consuming data from a MySQL database.</br>
   - A dockerized back end was built using data modeling through Sequelize, able to be consumed by the Front End of the application.</br>
   - To access the application, it is necessary to have a token, therefore the user(customer, salesperson or admin) must be logged in order to make any changes.</br>
-  - The back end implemented business rules to adequately populate the table available in the Front End, which is displayed to the user accessing the system.</br>
+  - The business rules were implemented in the back end and the client can communicate with the front end through a REST API.</br>
  </br>
  - The application was developed with <strong>Node.js and Typescript</strong>, using <strong>MSC architecture</strong> (Model, Service and Controller) and <strong>MySQL</strong> to perform CRUD (Create, Read, Update and Delete) operations.</br>
  - To generate and authenticate tokens, we used the library JSON Web Token - <strong>JWT</strong>.
@@ -51,7 +51,8 @@ O objetivo deste projeto <strong>Full Stack</strong> foi criar um aplicativo de 
  
  <strong>2. Instale as dependências</strong>
 
-  - Para isso, use o seguinte comando: 
+  - Para isso, use o seguinte comando:
+  > PS - a versão do Node utilizada neste projeto foi a 16.0.0
   ```
   npm install
   ```
@@ -87,7 +88,7 @@ O objetivo deste projeto <strong>Full Stack</strong> foi criar um aplicativo de 
   ## Com Docker
 
   > Rode o serviço `db` com o comando `docker-compose up -d`.
-  - Lembre-se de parar o `mysql` se estiver usando localmente na porta padrão (`3306`), ou adapte, caso queria fazer uso da aplicação em containers. A recomendação é pela performance do seu computador, pois o `docker-compose.yml` está configurado para mapear a porta padao do `mysql` do container para a porta `3307` e não `3306`. 
+  - Lembre-se de parar o `mysql` se estiver usando localmente na porta padrão (`3306`), ou adapte, caso queria fazer uso da aplicação em containers. 
   - Esse serviço irá inicializar um container chamado `db`.
   - A partir daqui você pode fazer operações que necessitem do banco de dados, como inserir e consultar pedidos e usuários.
   
