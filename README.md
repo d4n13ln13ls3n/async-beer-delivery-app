@@ -1,5 +1,5 @@
 # Project Async Beer Delivery App
-Projeto Full-Stack desenvolvido no final do módulo de Back End da [Trybe](https://www.betrybe.com/). 
+Projeto Full-Stack desenvolvido em equipe no final do módulo de Back End da [Trybe](https://www.betrybe.com/). 
 
 ## ✏ Informações sobre o projeto
 O objetivo deste projeto <strong>Full Stack</strong> foi criar um aplicativo de entregas de bebidas que pode ser utilizado por clientes, vendedores e administradores.
@@ -11,6 +11,7 @@ O objetivo deste projeto <strong>Full Stack</strong> foi criar um aplicativo de 
 - A aplicação foi desenvolvida com <strong>Node.js e TypeScript</strong>, utilizando a <strong>arquitetura MSC</strong> (Model, Service, Controller) e <strong>MySQL</strong> para realizar o CRUD (Create, Read, Update and Delete) dos itens.
 - Para gerar e autenticar token foi utilizado o JSON Web Token - <strong>JWT</strong>.
 - O Front End da aplicação foi construído utilizando React e Bootstrap.
+- O projeto foi desenvolvido utilizando Metodologias Ágeis, com Daily Meetings e planejamento visual seguindo um esquema no Figma.
 
  <details>
  <summary> 🇬🇧 English here</summary>
