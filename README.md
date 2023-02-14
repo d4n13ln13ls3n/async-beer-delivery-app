@@ -1,5 +1,5 @@
 # Project Async Beer Delivery App
-Projeto desenvolvido no módulo de Back End da [Trybe](https://www.betrybe.com/). 
+Projeto Full-Stack desenvolvido no final do módulo de Back End da [Trybe](https://www.betrybe.com/). 
 
 ## ✏ Informações sobre o projeto
 O objetivo deste projeto <strong>Full Stack</strong> foi criar um aplicativo de entregas de bebidas que pode ser utilizado por clientes, vendedores e administradores.
@@ -73,12 +73,19 @@ O objetivo deste projeto <strong>Full Stack</strong> foi criar um aplicativo de 
   npm start
   PS - A aplicação irá rodar na porta 3000, então certifique-se que a mesma não está sendo usada. Caso esteja, será perguntado se quer rodar em outra porta, o que pode ser feito sem problemas.
   
+  ## Com Docker
+
+  > Rode o serviço `db` com o comando `docker-compose up -d`.
+  - Lembre-se de parar o `mysql` se estiver usando localmente na porta padrão (`3306`), ou adapte, caso queria fazer uso da aplicação em containers. A recomendação é pela performance do seu computador, pois o `docker-compose.yml` está configurado para mapear a porta padao do `mysql` do container para a porta `3307` e não `3306`. 
+  - Esse serviço irá inicializar um container chamado `db`.
+  - A partir daqui você pode fazer operações que necessitem do banco de dados, como inserir e consultar pedidos e usuários.
+  
   ## Como usar a aplicação
   <strong>Cliente</strong>
   - Para acessar a aplicação como cliente, utilize as credenciais abaixo:
   ```
   email: zebirita@email.com
-  senha: $#zebirita#$
+  senha: '$#zebirita#$'
   
   <strong>Vendedor</strong>
   - Para acessar a aplicação como vendedor, utilize as credenciais abaixo:
@@ -91,3 +98,10 @@ O objetivo deste projeto <strong>Full Stack</strong> foi criar um aplicativo de 
   ```
   email: adm@deliveryapp.com
   senha: --adm2@21!!--
+  
+  Agradecimentos aos membros da equipe:
+  
+  - [Adriano Costa](https://github.com/adfcosta)
+  - [Fábio Barbirato](https://github.com/FabioBarbirato)
+  - [Gabriel Thiago](https://github.com/oGabrielDev)
+  - [Tayná Macedo](https://github.com/Tayna-Silva-Macedo)
