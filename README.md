@@ -47,20 +47,26 @@ O objetivo deste projeto <strong>Full Stack</strong> foi criar um aplicativo de 
  cd async-beer-delivery-app
  ```
  
- ## ⚙ 2. Instale as dependências
+ <strong>2. Instale as dependências</strong>
 
-  - Para isso, use o seguinte comando: `npm install
+  - Para isso, use o seguinte comando: 
+  ```
+  npm install
+  ```
   
- ## ⚙ 3. Inicie a API
+ <strong>3. Inicie a API</strong>
  
   - Para isso, acesse o diretório back-end
   ```
   cd back-end
   ```
+  
   - Rode o comando
   ```
   npm start
-  PS - a API irá rodar na porta 3001, então certifique-se que a mesma não está sendo usada
+  ```
+  
+  > PS - a API irá rodar na porta 3001, então certifique-se que a mesma não está sendo usada
   
   ## ⚙ 4. Acesse o front-end da aplicação
  
