@@ -95,18 +95,21 @@ O objetivo deste projeto <strong>Full Stack</strong> foi criar um aplicativo de 
   ```
   email: zebirita@email.com
   senha: '$#zebirita#$'
+  ```
   
   <strong>Vendedor</strong>
   - Para acessar a aplicação como vendedor, utilize as credenciais abaixo:
   ```
   email: fulana@deliveryapp.com
   senha: fulana@123
+  ```
 
   <strong>Administrador</strong>
   - Para acessar a aplicação como administrador, utilize as credenciais abaixo:
   ```
   email: adm@deliveryapp.com
   senha: --adm2@21!!--
+  ```
   
   Agradecimentos aos membros da equipe:
   
