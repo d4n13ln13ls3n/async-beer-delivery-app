@@ -68,17 +68,19 @@ O objetivo deste projeto <strong>Full Stack</strong> foi criar um aplicativo de 
   
   > PS - a API irá rodar na porta 3001, então certifique-se que a mesma não está sendo usada
   
-  ## ⚙ 4. Acesse o front-end da aplicação
+  <strong>4. Acesse o front-end da aplicação</strong>
  
   - Para isso, em outra janela do terminal, volte ao diretório raiz e depois acesse o diretório front-end
   ```
   cd ..
   cd front-end
+  ```
   
   - Rode o comando
   ```
   npm start
-  PS - A aplicação irá rodar na porta 3000, então certifique-se que a mesma não está sendo usada. Caso esteja, será perguntado se quer rodar em outra porta, o que pode ser feito sem problemas.
+  ```
+  > PS - A aplicação irá rodar na porta 3000, então certifique-se que a mesma não está sendo usada. Caso esteja, será perguntado se quer rodar em outra porta, o que pode ser feito sem problemas.
   
   ## Com Docker
 
