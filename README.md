@@ -111,7 +111,7 @@ O objetivo deste projeto <strong>Full Stack</strong> foi criar um aplicativo de 
   senha: --adm2@21!!--
   ```
   
-  Agradecimentos aos membros da equipe:
+  ## :clap: Agradecimentos aos membros da equipe:
   
   - [Adriano Costa](https://github.com/adfcosta)
   - [Fábio Barbirato](https://github.com/FabioBarbirato)
